@@ -48,6 +48,7 @@ class DashboardSummaryResponse(BaseModel):
     flagged_observations: int
     total_alerts: int
     open_alerts: int
+    critical_open_alerts: int = 0
     under_review_alerts: int
     resolved_alerts: int
     dismissed_alerts: int
@@ -80,6 +81,7 @@ class EmployeeSummary(BaseModel):
     last_activity_date: str
     observation_count: int
     max_risk_score: float
+    highest_priority: Optional[str] = None
     alert_count: int
     open_alert_count: int
 
@@ -168,6 +170,7 @@ class AlertSummaryItem(BaseModel):
     priority: str
     status: str
     model_version: str
+    activity_summary: Optional[str] = None
     created_at: str
     updated_at: str
 

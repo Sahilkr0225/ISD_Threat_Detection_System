@@ -28,9 +28,10 @@
       "total_observations": 61473,
       "flagged_observations": 10271,
       "total_alerts": 10271,
-      "open_alerts": 10271,
-      "under_review_alerts": 0,
-      "resolved_alerts": 0,
+      "open_alerts": 10268,
+      "critical_open_alerts": 539,
+      "under_review_alerts": 2,
+      "resolved_alerts": 1,
       "dismissed_alerts": 0,
       "alerts_by_priority": {
         "Critical": 541,
@@ -120,7 +121,62 @@
           "max_anomaly_score": 0.21904200199461565
         }
       ],
-      "recent_investigations": [],
+      "recent_investigations": [
+        {
+          "history_id": 6,
+          "alert_id": 2738,
+          "employee_id": "DMK0257",
+          "previous_status": "OPEN",
+          "new_status": "UNDER_REVIEW",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T16:42:02+00:00"
+        },
+        {
+          "history_id": 5,
+          "alert_id": 1224,
+          "employee_id": "BMG0917",
+          "previous_status": "OPEN",
+          "new_status": "UNDER_REVIEW",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T16:37:52+00:00"
+        },
+        {
+          "history_id": 4,
+          "alert_id": 1184,
+          "employee_id": "BMG0917",
+          "previous_status": "UNDER_REVIEW",
+          "new_status": "RESOLVED",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T16:37:09+00:00"
+        },
+        {
+          "history_id": 3,
+          "alert_id": 1184,
+          "employee_id": "BMG0917",
+          "previous_status": "RESOLVED",
+          "new_status": "UNDER_REVIEW",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T15:25:15+00:00"
+        },
+        {
+          "history_id": 2,
+          "alert_id": 1184,
+          "employee_id": "BMG0917",
+          "previous_status": "UNDER_REVIEW",
+          "new_status": "RESOLVED",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T15:17:46+00:00"
+        },
+        {
+          "history_id": 1,
+          "alert_id": 1184,
+          "employee_id": "BMG0917",
+          "previous_status": "OPEN",
+          "new_status": "UNDER_REVIEW",
+          "analyst_note": "Investigate this",
+          "changed_at": "2026-11-26T13:47:29+00:00"
+        }
+      ],
       "model_version": "isolation_forest_v1",
       "coverage_start_date": "2011-02-06",
       "coverage_end_date": "2011-05-17"
@@ -847,8 +903,9 @@
           "last_activity_date": "2011-05-16",
           "observation_count": 71,
           "max_risk_score": 99.99506676313885,
+          "highest_priority": "Critical",
           "alert_count": 71,
-          "open_alert_count": 71
+          "open_alert_count": 69
         },
         {
           "employee_id": "DMK0257",
@@ -859,8 +916,9 @@
           "last_activity_date": "2011-05-16",
           "observation_count": 72,
           "max_risk_score": 99.98848911399067,
+          "highest_priority": "Critical",
           "alert_count": 34,
-          "open_alert_count": 34
+          "open_alert_count": 33
         },
         {
           "employee_id": "IBB0359",
@@ -871,6 +929,7 @@
           "last_activity_date": "2011-05-16",
           "observation_count": 70,
           "max_risk_score": 99.98520028941657,
+          "highest_priority": "Critical",
           "alert_count": 70,
           "open_alert_count": 70
         },
@@ -883,6 +942,7 @@
           "last_activity_date": "2011-05-16",
           "observation_count": 93,
           "max_risk_score": 99.98355587712952,
+          "highest_priority": "Critical",
           "alert_count": 93,
           "open_alert_count": 93
         },
@@ -895,6 +955,7 @@
           "last_activity_date": "2011-05-16",
           "observation_count": 70,
           "max_risk_score": 99.97697822798132,
+          "highest_priority": "Critical",
           "alert_count": 70,
           "open_alert_count": 70
         }
@@ -923,7 +984,7 @@
           "risk_score": 99.99506676313885,
           "priority": "Critical",
           "alert_id": 1184,
-          "alert_status": "OPEN"
+          "alert_status": "RESOLVED"
         },
         {
           "observation_id": 16328,
@@ -940,7 +1001,7 @@
           "risk_score": 99.98848911399067,
           "priority": "Critical",
           "alert_id": 2738,
-          "alert_status": "OPEN"
+          "alert_status": "UNDER_REVIEW"
         },
         {
           "observation_id": 26730,
@@ -1013,10 +1074,11 @@
           "anomaly_score": 0.23446974714198554,
           "risk_score": 99.99506676313885,
           "priority": "Critical",
-          "status": "OPEN",
+          "status": "RESOLVED",
           "model_version": "isolation_forest_v1",
+          "activity_summary": "No web activities were recorded (0), although the employee normally records approximately 100 web activities per active observation.",
           "created_at": "2026-11-26T12:07:31+00:00",
-          "updated_at": "2026-11-26T12:07:31+00:00"
+          "updated_at": "2026-11-26T16:37:09+00:00"
         },
         {
           "alert_id": 2738,
@@ -1028,10 +1090,11 @@
           "anomaly_score": 0.22853070326434133,
           "risk_score": 99.98848911399067,
           "priority": "Critical",
-          "status": "OPEN",
+          "status": "UNDER_REVIEW",
           "model_version": "isolation_forest_v1",
+          "activity_summary": "No web activities were recorded (0), although the employee normally records approximately 95 web activities per active observation.",
           "created_at": "2026-11-26T12:07:31+00:00",
-          "updated_at": "2026-11-26T12:07:31+00:00"
+          "updated_at": "2026-11-26T16:42:02+00:00"
         },
         {
           "alert_id": 4340,
@@ -1045,6 +1108,7 @@
           "priority": "Critical",
           "status": "OPEN",
           "model_version": "isolation_forest_v1",
+          "activity_summary": "File Access Activity (30) was higher than usual; the employee normally records approximately 11 file activities per active observation.",
           "created_at": "2026-11-26T12:07:31+00:00",
           "updated_at": "2026-11-26T12:07:31+00:00"
         }
@@ -1341,7 +1405,7 @@
       "date_max": "2011-05-17",
       "alert_count": 10271,
       "explanation_count": 30813,
-      "investigation_history_count": 0,
+      "investigation_history_count": 6,
       "note": "Historical CERT r4.2 held-out test partition demonstration dataset; not live organisational monitoring."
     },
     "/api/v1/alerts/1184": {
@@ -1354,10 +1418,11 @@
       "anomaly_score": 0.23446974714198554,
       "risk_score": 99.99506676313885,
       "priority": "Critical",
-      "status": "OPEN",
+      "status": "RESOLVED",
       "model_version": "isolation_forest_v1",
+      "activity_summary": "No web activities were recorded (0), although the employee normally records approximately 100 web activities per active observation.",
       "created_at": "2026-11-26T12:07:31+00:00",
-      "updated_at": "2026-11-26T12:07:31+00:00",
+      "updated_at": "2026-11-26T16:37:09+00:00",
       "functional_unit": "2 - ResearchAndEngineering",
       "login_count": 2,
       "after_hours_login_count": 2,
@@ -1379,8 +1444,8 @@
           "deviation": -100.0,
           "direction": "below_baseline",
           "historical_obs_count": 14,
-          "evidence_description": "Web / HTTP Activity count (0) is 100.00 stabilized std below the employee's 14-observation baseline (mean 100.00, std 0.00).",
-          "investigation_recommendation": "Review proxy or web-access logs for unusual browsing volume or automated tool traffic."
+          "evidence_description": "No web activities were recorded (0), although the employee normally records approximately 100 web activities per active observation.",
+          "investigation_recommendation": "Check whether the employee's work assignment changed and whether web activity logs are complete."
         },
         {
           "explanation_id": 3551,
@@ -1392,8 +1457,8 @@
           "deviation": -9.3376,
           "direction": "below_baseline",
           "historical_obs_count": 14,
-          "evidence_description": "USB / Removable Device Activity count (0) is 9.34 stabilized std below the employee's 14-observation baseline (mean 16.71, std 1.79).",
-          "investigation_recommendation": "Unusual removable-device usage; verify business justification and endpoint device policy."
+          "evidence_description": "No USB activities were recorded (0), although the employee normally records approximately 17 USB activities per active observation.",
+          "investigation_recommendation": "Check work-pattern changes and removable-device logging completeness."
         },
         {
           "explanation_id": 3552,
@@ -1405,14 +1470,47 @@
           "deviation": -9.0714,
           "direction": "below_baseline",
           "historical_obs_count": 14,
-          "evidence_description": "Email Activity count (0) is 9.07 stabilized std below the employee's 14-observation baseline (mean 9.07, std 0.26).",
-          "investigation_recommendation": "Review email volume trends and verify whether bulk communications were business-related."
+          "evidence_description": "No email activities were recorded (0), although the employee normally records approximately 9.07 email activities per active observation.",
+          "investigation_recommendation": "Verify whether communication patterns changed or email activity records are incomplete."
         }
       ]
     },
     "/api/v1/alerts/1184/history": {
       "alert_id": 1184,
-      "items": []
+      "items": [
+        {
+          "history_id": 4,
+          "alert_id": 1184,
+          "previous_status": "UNDER_REVIEW",
+          "new_status": "RESOLVED",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T16:37:09+00:00"
+        },
+        {
+          "history_id": 3,
+          "alert_id": 1184,
+          "previous_status": "RESOLVED",
+          "new_status": "UNDER_REVIEW",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T15:25:15+00:00"
+        },
+        {
+          "history_id": 2,
+          "alert_id": 1184,
+          "previous_status": "UNDER_REVIEW",
+          "new_status": "RESOLVED",
+          "analyst_note": null,
+          "changed_at": "2026-11-26T15:17:46+00:00"
+        },
+        {
+          "history_id": 1,
+          "alert_id": 1184,
+          "previous_status": "OPEN",
+          "new_status": "UNDER_REVIEW",
+          "analyst_note": "Investigate this",
+          "changed_at": "2026-11-26T13:47:29+00:00"
+        }
+      ]
     },
     "/api/v1/employees/BMG0917": {
       "employee_id": "BMG0917",
@@ -1423,8 +1521,9 @@
       "last_activity_date": "2011-05-16",
       "observation_count": 71,
       "max_risk_score": 99.99506676313885,
+      "highest_priority": null,
       "alert_count": 71,
-      "open_alert_count": 71,
+      "open_alert_count": 69,
       "avg_risk_score": 95.33392223365846
     },
     "/api/v1/employees/BMG0917/history?page=1&page_size=5": {
@@ -1447,7 +1546,7 @@
           "risk_score": 93.10826810497927,
           "priority": "Medium",
           "alert_id": 1224,
-          "alert_status": "OPEN"
+          "alert_status": "UNDER_REVIEW"
         },
         {
           "observation_id": 7504,

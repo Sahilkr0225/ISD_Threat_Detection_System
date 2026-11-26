@@ -9,18 +9,25 @@
 - **Backend:** FastAPI, Python 3.10, Scikit-learn (Isolation Forest), Pandas, NumPy, PyArrow, Joblib, SQLite, Pytest
 - **Research & EDA:** Jupyter Notebook, Matplotlib, Seaborn
 
-## Current Implementation Status (Phase 3 Complete)
-- **Implemented:** Monorepo structure, Python 3.10 `.venv`, dataset audit & CERT r4.2 ground-truth mapping, data validation & cleaning (`backend/app/data/`), causal feature engineering (`backend/app/features/`), unscaled `IsolationForest` (`backend/app/ml/`), validation-reference risk scoring & priority classification (`backend/app/risk/`), causal explainability (`backend/app/explainability/`), SQLite persistence (`backend/app/database/`), `15` FastAPI `/api/v1` endpoints (`backend/app/api/routes/`), and `29` passing Pytest tests.
-- **Planned (Phase 4):** React + Vite + TypeScript + Tailwind CSS + Recharts security dashboard (`frontend/`).
+## Current Implementation Status (Phase 5.1 Complete)
+- **Implemented:** Full-stack academic prototype — Phase 1 data pipeline & causal feature engineering, Phase 2 unscaled Isolation Forest (`ROC-AUC = 0.8843`), Phase 3 FastAPI + SQLite backend (`15` `/api/v1` endpoints, `32` passing Pytest tests), Phase 4 React + Vite + TypeScript + Tailwind CSS SOC dashboard (`frontend/`), and Phase 5.1 administrator-focused plain-language explainability & UI.
+- **Future Scope:** Authentication, RBAC, and live organisational event streaming.
 
-## Run Backend API (Local Demonstration)
+## Run Full-Stack Application (Local Demonstration)
 
+1. **Backend (Terminal 1):**
 ```powershell
 .\.venv\Scripts\python.exe scripts\init_and_import_db.py
 .\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
+2. **Frontend (Terminal 2):**
+```powershell
+cd frontend
+npm install
+npm run dev
+```
 
-Interactive OpenAPI docs: `http://127.0.0.1:8000/docs`
+Frontend UI: `http://localhost:5173` · OpenAPI docs: `http://127.0.0.1:8000/docs`
 
 ## Reproduction Instructions (Windows PowerShell)
 

@@ -1,7 +1,7 @@
 # Project Status
 
 **Title:** AI-Based Insider Threat Detection System Using Unsupervised Anomaly Detection  
-**Current Phase:** Phase 3 Complete (Awaiting Review & Approval for Phase 4 React Frontend)  
+**Current Phase:** Phase 5.1 Complete (Administrator Experience & Actionable Explainability Ready for Submission)  
 **Target Submission:** 27 November 2026
 
 ## Implemented (Phase 1)
@@ -35,6 +35,19 @@
 - [x] FastAPI `/api/v1` REST API (`15` endpoints, Pydantic v2 schemas, localhost CORS)
 - [x] Phase 3 unit, integration, and live HTTP smoke tests (`29` total Pytest tests passing)
 
-## Planned (Phase 4)
-- [ ] Phase 4: React + Vite + TypeScript + Tailwind CSS + Recharts security monitoring dashboard (`frontend/`)
+## Implemented (Phase 4)
+- [x] React + Vite + TypeScript + Tailwind CSS v4 SOC dashboard (`frontend/`)
+- [x] Centralized typed Axios API layer (`frontend/src/api/`) connected to FastAPI `/api/v1`
+- [x] All 6 core pages + detail views (`Overview`, `Employees`, `EmployeeDetail`, `AlertCenter`, `AlertDetail`, `Investigations`, `ModelEvaluation`, `DatasetSystem`)
+- [x] End-to-end investigation workflow (`OPEN -> UNDER_REVIEW -> RESOLVED/DISMISSED`) with confirmation dialogs and toast feedback
+- [x] Strict `tsc -b` + `vite build` verification and live browser integration testing
+
+## Implemented (Phase 5.1)
+- [x] Direction-aware deterministic explainability (`backend/app/explainability/explainer.py`) & safe idempotent DB refresh (`30,813` rows, backup preserved, Alert `#1184` history preserved)
+- [x] Backward-compatible API enhancements (`critical_open_alerts`, `highest_priority`, `activity_summary`)
+- [x] Administrator-focused UI: grouped sidebar (`Security Operations` / `Advanced & Technical`), plain-language Alert Detail (`A–F` sections with collapsed technical details), accessible priority/percentile tooltips, and separate ROC-AUC/AP ablation charts
+
+## Future Enhancements (Post-Submission)
+- [ ] Authentication, Role-Based Access Control (RBAC), and authenticated analyst identities
+- [ ] Real-time event streaming / dataset replay
 

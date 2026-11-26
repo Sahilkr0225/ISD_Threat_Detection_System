@@ -1,0 +1,128 @@
+{
+  "task1_preservation": {
+    "sqlite_integrity_check": [
+      "ok"
+    ],
+    "sqlite_foreign_key_check_violations": 0,
+    "employees_exact_match": true,
+    "observations_exact_match": true,
+    "alerts_numerical_and_fk_match": true,
+    "explanations_numerical_match": true,
+    "preexisting_history_preserved": true,
+    "preexisting_history_rows": 3,
+    "current_table_counts": {
+      "employees": 877,
+      "employee_observations": 61473,
+      "alerts": 10271,
+      "alert_explanations": 30813,
+      "investigation_history": 6
+    },
+    "current_statuses": {
+      "OPEN": 10268,
+      "RESOLVED": 1,
+      "UNDER_REVIEW": 2
+    },
+    "current_priorities": {
+      "Critical": 541,
+      "High": 497,
+      "Low": 3589,
+      "Medium": 5644
+    }
+  },
+  "task2_idempotency": {
+    "run1_rows": 30813,
+    "run2_rows": 30813,
+    "identical_text_after_both_runs": true,
+    "identical_alerts_after_both_runs": true,
+    "identical_history_after_both_runs": true
+  },
+  "task3_alert_1184_email_std": {
+    "prior_14_values": [
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9,
+      10,
+      9,
+      9,
+      9,
+      9,
+      9,
+      9
+    ],
+    "exact_mean": 9.071428571428571,
+    "exact_std_ddof0": 0.25753937681885636,
+    "exact_stabilized_dev": -9.071428571428571,
+    "backup_db_row": {
+      "current_value": 0.0,
+      "historical_mean": 9.0714,
+      "historical_std": 0.2575,
+      "deviation": -9.0714
+    },
+    "current_db_row": {
+      "current_value": 0.0,
+      "historical_mean": 9.0714,
+      "historical_std": 0.2575,
+      "deviation": -9.0714
+    }
+  },
+  "task6_explanation_examples": {
+    "increased_activity": {
+      "alert_id": 90,
+      "priority": "Low",
+      "feature_name": "file_activity_count",
+      "current_value": 16.0,
+      "historical_mean": 8.7857,
+      "historical_std": 4.4909,
+      "deviation": 1.6064,
+      "direction": "above_baseline",
+      "historical_obs_count": 14,
+      "evidence_description": "File Access Activity (16) was higher than usual; the employee normally records approximately 8.79 file activities per active observation.",
+      "investigation_recommendation": "Review authorized file access and available file-operation records for this employee."
+    },
+    "decreased_nonzero_activity": {
+      "alert_id": 2,
+      "priority": "Low",
+      "feature_name": "email_activity_count",
+      "current_value": 1.0,
+      "historical_mean": 8.9286,
+      "historical_std": 0.2575,
+      "deviation": -7.9286,
+      "direction": "below_baseline",
+      "historical_obs_count": 14,
+      "evidence_description": "Email Activity (1) was lower than usual; the employee normally records approximately 8.93 email activities per active observation.",
+      "investigation_recommendation": "Verify whether communication patterns changed or email activity records are incomplete."
+    },
+    "zero_recorded_activity": {
+      "alert_id": 1,
+      "priority": "Medium",
+      "feature_name": "email_activity_count",
+      "current_value": 0.0,
+      "historical_mean": 13.7857,
+      "historical_std": 0.4103,
+      "deviation": -13.7857,
+      "direction": "below_baseline",
+      "historical_obs_count": 14,
+      "evidence_description": "No email activities were recorded (0), although the employee normally records approximately 14 email activities per active observation.",
+      "investigation_recommendation": "Verify whether communication patterns changed or email activity records are incomplete."
+    },
+    "insufficient_history": null,
+    "zero_historical_variance": {
+      "alert_id": 1,
+      "priority": "Medium",
+      "feature_name": "login_count",
+      "current_value": 2.0,
+      "historical_mean": 2.0,
+      "historical_std": 0.0,
+      "deviation": 0.0,
+      "direction": "near_baseline",
+      "historical_obs_count": 14,
+      "evidence_description": "Daily Logon Activity (2) remained close to the employee's usual level (approximately 2.00 logons per active observation).",
+      "investigation_recommendation": "Activity is consistent with the employee's recent baseline; prioritize stronger deviations during review."
+    }
+  },
+  "task6_forbidden_claim_hits": 0
+}

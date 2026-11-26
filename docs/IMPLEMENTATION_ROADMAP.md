@@ -14,5 +14,11 @@
 - Implemented SQLite persistence (`data/app/insider_threat.db`) and imported `61,473` held-out test observations (`877` employees, `10,271` alerts, `30,813` explanations).
 - Implemented `15` FastAPI `/api/v1` endpoints with Pydantic schemas and verified with `29` Pytest tests and live HTTP smoke tests.
 
-## Phase 4 — React Security Monitoring Dashboard & Final Integration
-- Build React + Vite + TypeScript + Tailwind CSS + Recharts dashboard (`frontend/`) on `feature/frontend` and integrate end-to-end.
+## Phase 4 — React Security Monitoring Dashboard & Final Integration (Complete)
+- Built React + Vite + TypeScript + Tailwind CSS v4 + Recharts SOC dashboard (`frontend/`).
+- Integrated all FastAPI `/api/v1` endpoints with server-side pagination, causal explainability cards, interactive investigation status transitions, and Phase 2 model evaluation explorer.
+- Verified `tsc -b && vite build`, live browser end-to-end workflow, and `30` backend Pytest tests.
+
+## Phase 5.1 — Administrator Experience & Actionable Explainability (Complete)
+- Added direction-aware plain-language explanations and safely refreshed `30,813` persisted `alert_explanations` rows (preserving all `10,271` alerts and Alert `#1184` investigation history).
+- Reorganized sidebar navigation (`Security Operations` vs. `Advanced & Technical`), added accessible priority/percentile tooltips, collapsed raw technical metrics into an expandable section on Alert Detail, and separated ROC-AUC / Average Precision ablation charts.

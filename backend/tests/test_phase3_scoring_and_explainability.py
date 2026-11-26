@@ -127,3 +127,55 @@ def test_explainability_causal_and_insufficient_history() -> None:
     # Distinct primary activities only (no duplicate log_* or *_hist_dev_* entries)
     assert len({e.feature_name for e in exps}) == 3
 
+
+def test_explainability_direction_aware_cases() -> None:
+    baseline_day = {
+        "login_count": 3,
+        "after_hours_login_count": 0,
+        "http_activity_count": 100,
+        "email_activity_count": 10,
+        "file_activity_count": 5,
+        "usb_activity_count": 2,
+    }
+    prior = [baseline_day] * 5
+
+    # Case 1: Zero recorded http/email/usb while login is unchanged
+    zero_day = {
+        "login_count": 3,
+        "after_hours_login_count": 0,
+        "http_activity_count": 0,
+        "email_activity_count": 0,
+        "file_activity_count": 3,  # decreased but non-zero
+        "usb_activity_count": 2,   # unchanged
+        "after_hours_ratio": 0.0,
+    }
+    exps_zero = {e.feature_name: e for e in generate_behavioural_explanations(zero_day, prior, top_n=6)}
+    assert exps_zero["http_activity_count"].direction == "below_baseline"
+    assert exps_zero["http_activity_count"].stabilized_deviation == -100.0
+    assert "No web activities were recorded (0)" in exps_zero["http_activity_count"].evidence_description
+    assert "logs are complete" in exps_zero["http_activity_count"].investigation_recommendation
+
+    assert exps_zero["file_activity_count"].direction == "below_baseline"
+    assert "lower than usual" in exps_zero["file_activity_count"].evidence_description
+
+    assert exps_zero["usb_activity_count"].direction == "near_baseline"
+    assert exps_zero["usb_activity_count"].stabilized_deviation == 0.0
+    assert "consistent with" in exps_zero["usb_activity_count"].investigation_recommendation
+
+    # Case 2: Increased USB & after-hours
+    spike_day = {
+        "login_count": 5,
+        "after_hours_login_count": 4,
+        "http_activity_count": 100,
+        "email_activity_count": 10,
+        "file_activity_count": 5,
+        "usb_activity_count": 12,
+        "after_hours_ratio": 0.8,
+    }
+    exps_spike = {e.feature_name: e for e in generate_behavioural_explanations(spike_day, prior, top_n=6)}
+    assert exps_spike["usb_activity_count"].direction == "above_baseline"
+    assert exps_spike["usb_activity_count"].stabilized_deviation == 10.0
+    assert "removable-device" in exps_spike["usb_activity_count"].investigation_recommendation
+    assert exps_spike["after_hours_login_count"].direction == "above_baseline"
+    assert "authorized" in exps_spike["after_hours_login_count"].investigation_recommendation
+

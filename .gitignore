@@ -60,4 +60,11 @@ models/*.npy
 Thumbs.db
 *.tmp
 *.log
+*.bak
 
+
+# Microsoft Word temporary files
+~$*
+
+# TypeScript build cache
+*.tsbuildinfo

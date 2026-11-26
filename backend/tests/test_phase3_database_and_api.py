@@ -241,3 +241,25 @@ def test_import_idempotency_preserves_alert_status_and_history(tmp_path: Path) -
         assert row["status"] == "UNDER_REVIEW"
         assert hist["analyst_note"] == "Preserved note check"
 
+
+def test_explanation_refresh_preserves_alerts_and_history(tmp_path: Path) -> None:
+    from scripts.refresh_explanations import refresh_explanations_in_db
+
+    db_path = tmp_path / "refresh_test.db"
+    _seed_temp_db(db_path)
+    with get_db_connection(db_path) as conn:
+        update_alert_status(conn, 1, "UNDER_REVIEW", "Keep my note")
+
+    res = refresh_explanations_in_db(db_path)
+    assert res["refreshed_explanation_rows"] == 1
+
+    with get_db_connection(db_path) as conn:
+        al = conn.execute("SELECT status, priority, anomaly_score, risk_score FROM alerts WHERE alert_id = 1").fetchone()
+        hist = conn.execute("SELECT analyst_note FROM investigation_history WHERE alert_id = 1").fetchone()
+        exp = conn.execute("SELECT evidence_description, investigation_recommendation FROM alert_explanations WHERE alert_id = 1").fetchone()
+        assert al["status"] == "UNDER_REVIEW"
+        assert al["priority"] == "Critical"
+        assert hist["analyst_note"] == "Keep my note"
+        assert "higher than usual" in exp["evidence_description"]
+        assert "removable-device" in exp["investigation_recommendation"]
+

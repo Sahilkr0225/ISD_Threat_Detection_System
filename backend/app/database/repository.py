@@ -48,6 +48,12 @@ def get_dashboard_summary(conn: sqlite3.Connection) -> Dict[str, Any]:
     for r in status_rows:
         status_counts[str(r["status"])] = int(r["cnt"])
 
+    critical_open_alerts = int(
+        conn.execute(
+            "SELECT COUNT(*) FROM alerts WHERE priority = 'Critical' AND status = 'OPEN'"
+        ).fetchone()[0]
+    )
+
     prio_rows = conn.execute(
         "SELECT priority, COUNT(*) AS cnt FROM alerts GROUP BY priority"
     ).fetchall()
@@ -95,6 +101,7 @@ def get_dashboard_summary(conn: sqlite3.Connection) -> Dict[str, Any]:
         "flagged_observations": int(obs_row["flagged_observations"] or 0),
         "total_alerts": sum(status_counts.values()),
         "open_alerts": status_counts["OPEN"],
+        "critical_open_alerts": critical_open_alerts,
         "under_review_alerts": status_counts["UNDER_REVIEW"],
         "resolved_alerts": status_counts["RESOLVED"],
         "dismissed_alerts": status_counts["DISMISSED"],
@@ -175,6 +182,21 @@ def list_employees(
             e.last_activity_date,
             COUNT(o.observation_id) AS observation_count,
             COALESCE(MAX(o.risk_score), 0.0) AS max_risk_score,
+            CASE MAX(
+                CASE o.priority
+                    WHEN 'Critical' THEN 4
+                    WHEN 'High' THEN 3
+                    WHEN 'Medium' THEN 2
+                    WHEN 'Low' THEN 1
+                    ELSE 0
+                END
+            )
+                WHEN 4 THEN 'Critical'
+                WHEN 3 THEN 'High'
+                WHEN 2 THEN 'Medium'
+                WHEN 1 THEN 'Low'
+                ELSE 'Informational'
+            END AS highest_priority,
             SUM(CASE WHEN a.alert_id IS NOT NULL THEN 1 ELSE 0 END) AS alert_count,
             SUM(CASE WHEN a.status = 'OPEN' THEN 1 ELSE 0 END) AS open_alert_count
         FROM employees e
@@ -385,6 +407,13 @@ def list_alerts(
             a.priority,
             a.status,
             a.model_version,
+            (
+                SELECT ae.evidence_description
+                FROM alert_explanations ae
+                WHERE ae.alert_id = a.alert_id
+                ORDER BY ABS(COALESCE(ae.deviation, 0.0)) DESC, ae.explanation_id ASC
+                LIMIT 1
+            ) AS activity_summary,
             a.created_at,
             a.updated_at
         FROM alerts a
@@ -425,6 +454,13 @@ def get_alert_detail(conn: sqlite3.Connection, alert_id: int) -> Optional[Dict[s
             a.priority,
             a.status,
             a.model_version,
+            (
+                SELECT ae.evidence_description
+                FROM alert_explanations ae
+                WHERE ae.alert_id = a.alert_id
+                ORDER BY ABS(COALESCE(ae.deviation, 0.0)) DESC, ae.explanation_id ASC
+                LIMIT 1
+            ) AS activity_summary,
             a.created_at,
             a.updated_at
         FROM alerts a
