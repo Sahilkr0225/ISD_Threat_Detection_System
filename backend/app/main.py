@@ -10,8 +10,9 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from backend.app.api.routes import alerts, dashboard, employees, model
+from backend.app.api.routes import alerts, audit, auth, dashboard, employees, model, users
 from backend.app.core.config import (
+    APP_ENV,
     CORS_ORIGINS,
     DATABASE_PATH,
     MODEL_BUNDLE_PATH,
@@ -46,14 +47,17 @@ def create_app(
         application.state.priority_classifier = priority_classifier
         yield
 
+    is_dev = APP_ENV == "development"
     application = FastAPI(
         title="AI-Based Insider Threat Detection System API",
-        version="0.3.0-phase3",
+        version="0.6.0-phase6",
         description=(
-            "Phase 3 backend API for unsupervised anomaly prioritization, "
-            "causal behavioural explanations, and analyst alert investigation. "
-            "Intended for local demonstration (localhost) prior to authentication/RBAC."
+            "Phase 6 backend API with server-side session authentication, CSRF protection, "
+            "Role-Based Access Control (RBAC), and security audit logging."
         ),
+        docs_url="/docs" if is_dev else None,
+        redoc_url="/redoc" if is_dev else None,
+        openapi_url="/openapi.json" if is_dev else None,
         lifespan=lifespan,
     )
 
@@ -62,7 +66,7 @@ def create_app(
         allow_origins=CORS_ORIGINS,
         allow_credentials=True,
         allow_methods=["GET", "PATCH", "POST", "OPTIONS"],
-        allow_headers=["*"],
+        allow_headers=["Content-Type", "X-CSRF-Token"],
     )
 
     @application.exception_handler(Exception)
@@ -73,16 +77,13 @@ def create_app(
         )
 
     @application.get("/api/v1/health", response_model=HealthResponse, tags=["Health"])
-    def health_check(request: Request) -> dict:
-        model_loaded = getattr(request.app.state, "predictor", None) is not None
-        db_ready = getattr(request.app.state, "db_path", None) is not None
-        return {
-            "status": "ok",
-            "phase": "3",
-            "model_loaded": model_loaded,
-            "database_ready": db_ready,
-        }
+    def health_check() -> dict:
+        """Minimal public liveness check (does not expose internal state)."""
+        return {"status": "ok", "phase": "6"}
 
+    application.include_router(auth.router, prefix="/api/v1")
+    application.include_router(users.router, prefix="/api/v1")
+    application.include_router(audit.router, prefix="/api/v1")
     application.include_router(dashboard.router, prefix="/api/v1")
     application.include_router(employees.router, prefix="/api/v1")
     application.include_router(alerts.router, prefix="/api/v1")

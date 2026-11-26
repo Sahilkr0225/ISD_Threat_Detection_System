@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import math
 import sqlite3
-from typing import Optional
+from typing import Any, Dict, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from backend.app.api.deps import get_db
+from backend.app.api.deps import get_db, require_roles
 from backend.app.database.repository import (
     get_employee_detail,
     get_employee_history,
@@ -32,6 +32,9 @@ def read_employees(
     search: Optional[str] = Query(default=None, max_length=64),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=25, ge=1, le=100),
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """List employees represented in the imported dataset with pagination."""
@@ -52,6 +55,9 @@ def read_employees(
 @router.get("/employees/{employee_id}", response_model=EmployeeDetailResponse)
 def read_employee_detail(
     employee_id: str,
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """Retrieve profile and aggregated risk metrics for a single employee."""
@@ -69,6 +75,9 @@ def read_employee_history(
     employee_id: str,
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=50, ge=1, le=200),
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """Retrieve chronological behavioural observations for an employee."""
@@ -98,6 +107,9 @@ def read_anomalies(
     date_to: Optional[str] = Query(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$"),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=25, ge=1, le=100),
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """List flagged observations (priority != Informational) with filtering and pagination."""

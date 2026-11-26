@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import math
 import sqlite3
-from typing import Literal, Optional
+from typing import Any, Dict, Literal, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from backend.app.api.deps import get_db
+from backend.app.api.deps import get_db, require_csrf, require_roles
 from backend.app.database.repository import (
     InvalidStatusTransitionError,
     get_alert_detail,
@@ -39,6 +39,9 @@ def read_alerts(
     sort_order: Literal["asc", "desc"] = Query(default="desc"),
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=25, ge=1, le=100),
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """List alerts with priority/status/employee/date filters, sorting, and pagination."""
@@ -68,6 +71,9 @@ def read_alerts(
 @router.get("/{alert_id}", response_model=AlertDetailResponse)
 def read_alert_detail(
     alert_id: int,
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """Retrieve alert details, observation metrics, and causal behavioural explanations."""
@@ -80,10 +86,11 @@ def read_alert_detail(
     return detail
 
 
-@router.patch("/{alert_id}/status", response_model=AlertDetailResponse)
+@router.patch("/{alert_id}/status", response_model=AlertDetailResponse, dependencies=[Depends(require_csrf)])
 def patch_alert_status(
     alert_id: int,
     payload: AlertStatusUpdateRequest,
+    user: Dict[str, Any] = Depends(require_roles("ADMINISTRATOR", "SECURITY_ANALYST")),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """Update alert investigation status and append an audit trail entry."""
@@ -93,6 +100,7 @@ def patch_alert_status(
             alert_id=alert_id,
             new_status=payload.new_status,
             analyst_note=payload.analyst_note,
+            actor_user_id=user["user_id"],
         )
     except InvalidStatusTransitionError as exc:
         raise HTTPException(
@@ -111,6 +119,9 @@ def patch_alert_status(
 @router.get("/{alert_id}/history", response_model=AlertHistoryResponse)
 def read_alert_history(
     alert_id: int,
+    _user: Dict[str, Any] = Depends(
+        require_roles("ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR")
+    ),
     conn: sqlite3.Connection = Depends(get_db),
 ) -> dict:
     """Retrieve investigation status transition history for an alert."""

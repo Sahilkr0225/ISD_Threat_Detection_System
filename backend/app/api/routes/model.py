@@ -13,6 +13,8 @@ from backend.app.api.deps import (
     get_predictor,
     get_priority_classifier,
     get_risk_scorer,
+    require_csrf,
+    require_roles,
 )
 from backend.app.core.config import METRICS_DIR
 from backend.app.database.repository import get_data_summary
@@ -34,7 +36,10 @@ DISCLAIMER = (
 
 
 @router.get("/model/info", response_model=ModelInfoResponse)
-def read_model_info(predictor: ModelPredictor = Depends(get_predictor)) -> dict:
+def read_model_info(
+    _user: Dict[str, Any] = Depends(require_roles("ADMINISTRATOR", "AUDITOR")),
+    predictor: ModelPredictor = Depends(get_predictor),
+) -> dict:
     """Return loaded model configuration, feature schema, and calibrated thresholds."""
     return {
         "model_version": predictor.model_version,
@@ -54,7 +59,9 @@ def read_model_info(predictor: ModelPredictor = Depends(get_predictor)) -> dict:
 
 
 @router.get("/model/metrics")
-def read_model_metrics() -> Dict[str, Any]:
+def read_model_metrics(
+    _user: Dict[str, Any] = Depends(require_roles("ADMINISTRATOR", "AUDITOR")),
+) -> Dict[str, Any]:
     """Return verified Phase 2 offline evaluation metrics (not derived from alert statuses)."""
     eval_path = METRICS_DIR / "phase2_evaluation.json"
     audit_path = METRICS_DIR / "phase2_verification_audit.json"
@@ -102,9 +109,10 @@ def read_model_metrics() -> Dict[str, Any]:
     }
 
 
-@router.post("/model/predict", response_model=ModelPredictResponse)
+@router.post("/model/predict", response_model=ModelPredictResponse, dependencies=[Depends(require_csrf)])
 def predict_observations(
     payload: ModelPredictBatchRequest,
+    _admin: Dict[str, Any] = Depends(require_roles("ADMINISTRATOR")),
     predictor: ModelPredictor = Depends(get_predictor),
     scorer: RiskScorer = Depends(get_risk_scorer),
     classifier: PriorityClassifier = Depends(get_priority_classifier),
@@ -142,7 +150,10 @@ def predict_observations(
 
 
 @router.get("/data/summary", response_model=DataSummaryResponse)
-def read_data_summary(conn: sqlite3.Connection = Depends(get_db)) -> dict:
+def read_data_summary(
+    _user: Dict[str, Any] = Depends(require_roles("ADMINISTRATOR", "AUDITOR")),
+    conn: sqlite3.Connection = Depends(get_db),
+) -> dict:
     """Return imported historical demonstration dataset coverage and table counts."""
     summary = get_data_summary(conn)
     summary["note"] = (

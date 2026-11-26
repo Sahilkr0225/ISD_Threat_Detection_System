@@ -7,13 +7,12 @@ from pydantic import BaseModel, Field
 
 AlertStatusLiteral = Literal["OPEN", "UNDER_REVIEW", "RESOLVED", "DISMISSED"]
 PriorityLiteral = Literal["Critical", "High", "Medium", "Low", "Informational"]
+RoleLiteral = Literal["ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR"]
 
 
 class HealthResponse(BaseModel):
     status: str
     phase: str
-    model_loaded: bool
-    database_ready: bool
 
 
 class PaginationMeta(BaseModel):
@@ -40,6 +39,9 @@ class RecentInvestigationItem(BaseModel):
     new_status: str
     analyst_note: Optional[str] = None
     changed_at: str
+    actor_user_id: Optional[int] = None
+    actor_username: Optional[str] = None
+    actor_display_name: Optional[str] = None
 
 
 class DashboardSummaryResponse(BaseModel):
@@ -206,6 +208,9 @@ class InvestigationHistoryItem(BaseModel):
     new_status: str
     analyst_note: Optional[str] = None
     changed_at: str
+    actor_user_id: Optional[int] = None
+    actor_username: Optional[str] = None
+    actor_display_name: Optional[str] = None
 
 
 class AlertHistoryResponse(BaseModel):
@@ -276,4 +281,82 @@ class DataSummaryResponse(BaseModel):
     explanation_count: int
     investigation_history_count: int
     note: str
+
+
+# --- Phase 6 Authentication, User Management & Audit Schemas ---
+
+class UserPublic(BaseModel):
+    user_id: int
+    username: str
+    display_name: str
+    role: RoleLiteral
+    is_active: bool
+    created_at: str
+    updated_at: str
+    last_login_at: Optional[str] = None
+
+
+class LoginRequest(BaseModel):
+    username: str = Field(..., min_length=1, max_length=64)
+    password: str = Field(..., min_length=1, max_length=128)
+
+
+class LoginResponse(BaseModel):
+    user: UserPublic
+    csrf_token: str
+    expires_at: str
+
+
+class CsrfResponse(BaseModel):
+    csrf_token: str
+
+
+class SessionMeResponse(BaseModel):
+    user: UserPublic
+    session_expires_at: str
+
+
+class ChangePasswordRequest(BaseModel):
+    current_password: str = Field(..., min_length=1, max_length=128)
+    new_password: str = Field(..., min_length=12, max_length=128)
+
+
+class CreateUserRequest(BaseModel):
+    username: str = Field(..., min_length=3, max_length=64)
+    display_name: str = Field(..., min_length=1, max_length=100)
+    password: str = Field(..., min_length=12, max_length=128)
+    role: RoleLiteral
+
+
+class UpdateUserRequest(BaseModel):
+    display_name: Optional[str] = Field(default=None, min_length=1, max_length=100)
+    role: Optional[RoleLiteral] = None
+    is_active: Optional[bool] = None
+
+
+class ResetPasswordRequest(BaseModel):
+    new_password: str = Field(..., min_length=12, max_length=128)
+
+
+class UserListResponse(BaseModel):
+    items: List[UserPublic]
+    pagination: PaginationMeta
+
+
+class SecurityAuditLogItem(BaseModel):
+    audit_id: int
+    actor_user_id: Optional[int] = None
+    actor_username: Optional[str] = None
+    actor_display_name: Optional[str] = None
+    action: str
+    resource_type: str
+    resource_id: Optional[str] = None
+    outcome: str
+    timestamp: str
+    details: Optional[str] = None
+
+
+class SecurityAuditLogListResponse(BaseModel):
+    items: List[SecurityAuditLogItem]
+    pagination: PaginationMeta
 
