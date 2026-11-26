@@ -11,8 +11,66 @@ export interface PaginationMeta {
 export interface HealthResponse {
   status: string;
   phase: string;
-  model_loaded: boolean;
-  database_ready: boolean;
+}
+
+export type UserRole = "ADMINISTRATOR" | "SECURITY_ANALYST" | "AUDITOR";
+
+export interface UserPublic {
+  user_id: number;
+  username: string;
+  display_name: string;
+  role: UserRole;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  last_login_at: string | null;
+}
+
+export interface LoginResponse {
+  user: UserPublic;
+  csrf_token: string;
+  expires_at: string;
+}
+
+export interface SessionMeResponse {
+  user: UserPublic;
+  session_expires_at: string;
+}
+
+export interface UserListResponse {
+  items: UserPublic[];
+  pagination: PaginationMeta;
+}
+
+export interface CreateUserPayload {
+  username: string;
+  display_name: string;
+  password: string;
+  role: UserRole;
+}
+
+export interface UpdateUserPayload {
+  display_name?: string;
+  role?: UserRole;
+  is_active?: boolean;
+}
+
+export interface SecurityAuditLogItem {
+  audit_id: number;
+  actor_user_id: number | null;
+  actor_username: string | null;
+  actor_display_name: string | null;
+  action: string;
+  resource_type: string;
+  resource_id: string | null;
+  outcome: string;
+  timestamp: string;
+  details: string | null;
+}
+
+export interface SecurityAuditLogListResponse {
+  items: SecurityAuditLogItem[];
+  pagination: PaginationMeta;
 }
 
 export interface TopEmployeeItem {
@@ -32,6 +90,10 @@ export interface RecentInvestigationItem {
   new_status: string;
   analyst_note: string | null;
   changed_at: string;
+  actor_user_id?: number | null;
+  actor_username?: string | null;
+  actor_display_name?: string | null;
+  actor_role?: string | null;
 }
 
 export interface DashboardSummaryResponse {
@@ -170,6 +232,10 @@ export interface InvestigationHistoryItem {
   new_status: string;
   analyst_note: string | null;
   changed_at: string;
+  actor_user_id?: number | null;
+  actor_username?: string | null;
+  actor_display_name?: string | null;
+  actor_role?: string | null;
 }
 
 export interface AlertHistoryResponse {

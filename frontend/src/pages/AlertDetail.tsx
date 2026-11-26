@@ -30,6 +30,7 @@ import {
   LoadingSkeleton,
 } from "../components/common/FeedbackStates";
 import { useToast } from "../components/common/ToastContext";
+import { useAuth } from "../context/AuthContext";
 import type {
   AlertDetailResponse,
   AlertStatus,
@@ -96,6 +97,8 @@ function directionLabel(direction: string, current: number): string {
 }
 
 export default function AlertDetail() {
+  const { hasRole } = useAuth();
+  const canModifyStatus = hasRole("ADMINISTRATOR", "SECURITY_ANALYST");
   const { alertId } = useParams<{ alertId: string }>();
   const numericId = Number(alertId);
   const navigate = useNavigate();
@@ -366,49 +369,58 @@ export default function AlertDetail() {
           {/* E. Investigation Actions */}
           <div className="rounded-xl border border-[#263244] bg-[#151E2E] p-4 space-y-3">
             <h3 className="text-sm font-semibold text-[#E2E8F0]">Investigation Actions</h3>
-            <textarea
-              rows={3}
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              placeholder="Add analyst investigation note (optional)..."
-              className="w-full rounded-lg border border-[#263244] bg-[#0B1120] p-2.5 text-xs text-[#E2E8F0] placeholder-[#94A3B8] focus:border-[#38BDF8] focus:outline-none"
-            />
-            <div className="flex flex-wrap gap-2">
-              {(detail.status === "OPEN" || detail.status === "RESOLVED" || detail.status === "DISMISSED") && (
-                <button
-                  type="button"
-                  disabled={mutating}
-                  onClick={() => executeStatusChange("UNDER_REVIEW")}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500/20 border border-amber-500/40 px-3 py-1.5 text-xs font-medium text-amber-300 hover:bg-amber-500/30 disabled:opacity-50"
-                >
-                  <Play className="h-3.5 w-3.5" />
-                  {detail.status === "OPEN" ? "Start Investigation" : "Reopen for Review"}
-                </button>
-              )}
-              {(detail.status === "OPEN" || detail.status === "UNDER_REVIEW") && (
-                <>
-                  <button
-                    type="button"
-                    disabled={mutating}
-                    onClick={() => setPendingAction("RESOLVED")}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 px-3 py-1.5 text-xs font-medium text-emerald-300 hover:bg-emerald-500/30 disabled:opacity-50"
-                  >
-                    <CheckCircle2 className="h-3.5 w-3.5" /> Complete Investigation
-                  </button>
-                  <button
-                    type="button"
-                    disabled={mutating}
-                    onClick={() => setPendingAction("DISMISSED")}
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-slate-600/30 border border-slate-500/40 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-600/50 disabled:opacity-50"
-                  >
-                    <XCircle className="h-3.5 w-3.5" /> Dismiss Alert
-                  </button>
-                </>
-              )}
-            </div>
-            <p className="text-[11px] text-[#94A3B8]">
-              Completing or dismissing an investigation records an administrative triage decision and does not establish confirmed malicious activity.
-            </p>
+            {!canModifyStatus ? (
+              <p className="rounded-lg border border-[#263244] bg-[#0B1120] p-3 text-xs text-[#94A3B8]">
+                Read-only access ({""}
+                <span className="font-semibold text-[#E2E8F0]">AUDITOR</span>): only Administrators and Security Analysts can transition investigation statuses or add notes.
+              </p>
+            ) : (
+              <>
+                <textarea
+                  rows={3}
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="Add analyst investigation note (optional)..."
+                  className="w-full rounded-lg border border-[#263244] bg-[#0B1120] p-2.5 text-xs text-[#E2E8F0] placeholder-[#94A3B8] focus:border-[#38BDF8] focus:outline-none"
+                />
+                <div className="flex flex-wrap gap-2">
+                  {(detail.status === "OPEN" || detail.status === "RESOLVED" || detail.status === "DISMISSED") && (
+                    <button
+                      type="button"
+                      disabled={mutating}
+                      onClick={() => executeStatusChange("UNDER_REVIEW")}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-amber-500/20 border border-amber-500/40 px-3 py-1.5 text-xs font-medium text-amber-300 hover:bg-amber-500/30 disabled:opacity-50"
+                    >
+                      <Play className="h-3.5 w-3.5" />
+                      {detail.status === "OPEN" ? "Start Investigation" : "Reopen for Review"}
+                    </button>
+                  )}
+                  {(detail.status === "OPEN" || detail.status === "UNDER_REVIEW") && (
+                    <>
+                      <button
+                        type="button"
+                        disabled={mutating}
+                        onClick={() => setPendingAction("RESOLVED")}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/20 border border-emerald-500/40 px-3 py-1.5 text-xs font-medium text-emerald-300 hover:bg-emerald-500/30 disabled:opacity-50"
+                      >
+                        <CheckCircle2 className="h-3.5 w-3.5" /> Complete Investigation
+                      </button>
+                      <button
+                        type="button"
+                        disabled={mutating}
+                        onClick={() => setPendingAction("DISMISSED")}
+                        className="inline-flex items-center gap-1.5 rounded-lg bg-slate-600/30 border border-slate-500/40 px-3 py-1.5 text-xs font-medium text-slate-200 hover:bg-slate-600/50 disabled:opacity-50"
+                      >
+                        <XCircle className="h-3.5 w-3.5" /> Dismiss Alert
+                      </button>
+                    </>
+                  )}
+                </div>
+                <p className="text-[11px] text-[#94A3B8]">
+                  Completing or dismissing an investigation records an administrative triage decision and does not establish confirmed malicious activity.
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -428,10 +440,16 @@ export default function AlertDetail() {
             <div className="divide-y divide-[#263244]/60 text-xs">
               {history.map((h) => (
                 <div key={h.history_id} className="flex flex-wrap items-center justify-between gap-2 py-2.5">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <StatusBadge status={h.previous_status} />
                     <span className="text-[#94A3B8]">→</span>
                     <StatusBadge status={h.new_status} />
+                    <span className="text-[#94A3B8]">
+                      by{" "}
+                      <span className="text-[#E2E8F0]">
+                        {h.actor_display_name ?? h.actor_username ?? "Legacy / Unauthenticated"}
+                      </span>
+                    </span>
                     {h.analyst_note && <span className="text-[#E2E8F0]">“{h.analyst_note}”</span>}
                   </div>
                   <span className="text-[#94A3B8]">{formatTimestamp(h.changed_at)}</span>

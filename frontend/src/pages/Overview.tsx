@@ -395,13 +395,19 @@ export default function Overview() {
                   onClick={() => navigate(`/alerts/${inv.alert_id}`)}
                   className="flex flex-wrap items-center justify-between gap-2 py-2.5 cursor-pointer hover:bg-[#0B1120]/40 px-2 rounded"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <PriorityBadge priority="Critical" />
                     <span className="font-mono text-[#38BDF8]">Alert #{inv.alert_id}</span>
                     <span className="text-[#94A3B8]">({inv.employee_id})</span>
                     <StatusBadge status={inv.previous_status} />
                     <span className="text-[#94A3B8]">→</span>
                     <StatusBadge status={inv.new_status} />
+                    <span className="text-[#94A3B8]">
+                      by{" "}
+                      <span className="text-[#E2E8F0]">
+                        {inv.actor_display_name ?? inv.actor_username ?? "Legacy / Unauthenticated"}
+                      </span>
+                    </span>
                     {inv.analyst_note && (
                       <span className="text-[#E2E8F0] italic">“{inv.analyst_note}”</span>
                     )}

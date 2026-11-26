@@ -1,60 +1,120 @@
-import { useEffect, useState, type ReactNode } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Activity,
   AlertOctagon,
   BarChart3,
   ClipboardCheck,
   Database,
+  FileSearch,
   LayoutDashboard,
+  LogOut,
   Menu,
   PanelLeftClose,
   PanelLeftOpen,
   ShieldAlert,
+  UserCog,
   Users,
   X,
 } from "lucide-react";
 import { fetchHealth } from "../../api/dashboard";
-import type { HealthResponse } from "../../types/api";
+import { useAuth } from "../../context/AuthContext";
+import type { HealthResponse, UserRole } from "../../types/api";
 
-const NAV_GROUPS = [
+interface NavItem {
+  to: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  roles: UserRole[];
+}
+
+interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
+const ALL_ROLES: UserRole[] = ["ADMINISTRATOR", "SECURITY_ANALYST", "AUDITOR"];
+
+const NAV_GROUPS: NavGroup[] = [
   {
     title: "Security Operations",
     items: [
-      { to: "/", label: "Security Overview", icon: LayoutDashboard },
-      { to: "/employees", label: "Employee Monitoring", icon: Users },
-      { to: "/alerts", label: "Suspicious Activity", icon: AlertOctagon },
-      { to: "/investigations", label: "Investigations", icon: ClipboardCheck },
+      { to: "/", label: "Security Overview", icon: LayoutDashboard, roles: ALL_ROLES },
+      { to: "/employees", label: "Employee Monitoring", icon: Users, roles: ALL_ROLES },
+      { to: "/alerts", label: "Suspicious Activity", icon: AlertOctagon, roles: ALL_ROLES },
+      { to: "/investigations", label: "Investigations", icon: ClipboardCheck, roles: ALL_ROLES },
     ],
   },
   {
     title: "Advanced & Technical",
     items: [
-      { to: "/model", label: "AI Model Performance", icon: BarChart3 },
-      { to: "/system", label: "Dataset & System", icon: Database },
+      {
+        to: "/model",
+        label: "AI Model Performance",
+        icon: BarChart3,
+        roles: ["ADMINISTRATOR", "AUDITOR"],
+      },
+      {
+        to: "/system",
+        label: "Dataset & System",
+        icon: Database,
+        roles: ["ADMINISTRATOR", "AUDITOR"],
+      },
+    ],
+  },
+  {
+    title: "Governance & Access",
+    items: [
+      {
+        to: "/users",
+        label: "User Management",
+        icon: UserCog,
+        roles: ["ADMINISTRATOR"],
+      },
+      {
+        to: "/audit-logs",
+        label: "Audit Logs",
+        icon: FileSearch,
+        roles: ["ADMINISTRATOR", "AUDITOR"],
+      },
     ],
   },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [apiOnline, setApiOnline] = useState<boolean | null>(null);
   const location = useLocation();
 
+  const visibleGroups = useMemo(() => {
+    if (!user) return [];
+    return NAV_GROUPS.map((group) => ({
+      ...group,
+      items: group.items.filter((item) => item.roles.includes(user.role)),
+    })).filter((group) => group.items.length > 0);
+  }, [user]);
+
   useEffect(() => {
     const controller = new AbortController();
     fetchHealth(controller.signal)
       .then((res) => {
         setHealth(res);
-        setApiOnline(res.status === "ok" && res.model_loaded && res.database_ready);
+        setApiOnline(res.status === "ok");
       })
       .catch(() => {
         setApiOnline(false);
       });
     return () => controller.abort();
   }, [location.pathname]);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  };
 
   const segments = location.pathname.split("/").filter(Boolean);
 
@@ -85,7 +145,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="flex-1 space-y-4 p-2.5">
-          {NAV_GROUPS.map((group) => (
+          {visibleGroups.map((group) => (
             <div key={group.title} className="space-y-1">
               {!collapsed && (
                 <div className="px-3 pt-1 pb-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#94A3B8]">
@@ -140,7 +200,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               </button>
             </div>
             <nav className="mt-3 space-y-4">
-              {NAV_GROUPS.map((group) => (
+              {visibleGroups.map((group) => (
                 <div key={group.title} className="space-y-1">
                   <div className="px-3 text-[10px] font-semibold uppercase tracking-wider text-[#94A3B8]">
                     {group.title}
@@ -197,12 +257,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="flex items-center gap-2.5 text-xs">
-            <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[#263244] bg-[#0B1120] px-2.5 py-1 text-[#94A3B8]">
-              <Database className="h-3.5 w-3.5 text-[#38BDF8]" />
-              Historical Dataset (CERT r4.2)
-            </span>
             <span
-              className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-medium ${
+              className={`hidden sm:inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-medium ${
                 apiOnline === true
                   ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
                   : apiOnline === false
@@ -212,11 +268,30 @@ export function AppShell({ children }: { children: ReactNode }) {
             >
               <Activity className="h-3.5 w-3.5" />
               {apiOnline === true
-                ? `Backend Connected (Phase ${health?.phase ?? "3"})`
+                ? `API Online (Phase ${health?.phase ?? "6"})`
                 : apiOnline === false
                 ? "Backend Offline"
                 : "Checking API..."}
             </span>
+
+            {user && (
+              <div className="flex items-center gap-2 rounded-full border border-[#263244] bg-[#0B1120] py-1 pr-1.5 pl-3">
+                <span className="font-medium text-[#E2E8F0]">{user.display_name}</span>
+                <span className="rounded-full bg-[#38BDF8]/15 px-2 py-0.5 text-[10px] font-semibold text-[#38BDF8]">
+                  {user.role}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  title="Sign out"
+                  aria-label="Sign out"
+                  className="inline-flex items-center gap-1 rounded-full border border-[#263244] bg-[#151E2E] px-2 py-0.5 text-[11px] text-[#94A3B8] hover:border-red-500/40 hover:text-red-300"
+                >
+                  <LogOut className="h-3 w-3" />
+                  <span className="hidden md:inline">Logout</span>
+                </button>
+              </div>
+            )}
           </div>
         </header>
 
