@@ -1,0 +1,17 @@
+{
+  "elapsed_seconds": 9.817,
+  "source_rows": 61473,
+  "table_counts": {
+    "employees": 877,
+    "employee_observations": 61473,
+    "alerts": 10271,
+    "alert_explanations": 30813,
+    "investigation_history": 0
+  },
+  "alerts_by_priority": {
+    "Critical": 541,
+    "High": 497,
+    "Low": 3589,
+    "Medium": 5644
+  }
+}

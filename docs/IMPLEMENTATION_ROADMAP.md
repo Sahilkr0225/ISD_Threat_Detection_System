@@ -9,9 +9,10 @@
 - Evaluated once on held-out `test.parquet` (Test ROC-AUC `0.8843`, PR-AUC `0.0105`).
 - Persisted `models/isolation_forest_v1.joblib` and added Phase 2 unit tests.
 
-## Phase 3 — Risk Scoring, Explainability, Alerting & FastAPI Backend
-- Implement `0–100` normalized risk scoring (`backend/app/risk/`) and per-feature deviation explanations (`backend/app/explainability/`).
-- Implement SQLite persistence (`backend/app/database/`) and FastAPI routes (`backend/app/api/routes/`).
+## Phase 3 — Risk Scoring, Explainability, Alerting & FastAPI Backend (Complete)
+- Implemented `ModelPredictor`, validation-reference `RiskScorer`, `PriorityClassifier`, and causal `BehaviouralExplainer`.
+- Implemented SQLite persistence (`data/app/insider_threat.db`) and imported `61,473` held-out test observations (`877` employees, `10,271` alerts, `30,813` explanations).
+- Implemented `15` FastAPI `/api/v1` endpoints with Pydantic schemas and verified with `29` Pytest tests and live HTTP smoke tests.
 
 ## Phase 4 — React Security Monitoring Dashboard & Final Integration
 - Build React + Vite + TypeScript + Tailwind CSS + Recharts dashboard (`frontend/`) on `feature/frontend` and integrate end-to-end.

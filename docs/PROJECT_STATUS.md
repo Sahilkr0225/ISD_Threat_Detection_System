@@ -1,7 +1,7 @@
 # Project Status
 
 **Title:** AI-Based Insider Threat Detection System Using Unsupervised Anomaly Detection  
-**Current Phase:** Phase 2 Complete (Awaiting Review & Approval for Phase 3)  
+**Current Phase:** Phase 3 Complete (Awaiting Review & Approval for Phase 4 React Frontend)  
 **Target Submission:** 27 November 2026
 
 ## Implemented (Phase 1)
@@ -27,7 +27,14 @@
 ## Known Blockers / Limitations
 - None for Phase 3. Ground-truth labels are stored separately from `APPROVED_MODEL_FEATURES` and used strictly for offline evaluation.
 
-## Planned (Phases 3–4)
-- [ ] Phase 3: Normalized risk scoring (`backend/app/risk/`), behavioural explainability (`backend/app/explainability/`), alert generation, SQLite persistence, and FastAPI routes
-- [ ] Phase 4: React + Vite + TypeScript + Tailwind security monitoring dashboard (`frontend/`)
+## Implemented (Phase 3)
+- [x] `ModelPredictor` singleton inference service (`backend/app/ml/predictor.py`)
+- [x] Validation-reference `RiskScorer` and `PriorityClassifier` (`backend/app/risk/scoring.py`, `models/validation_score_reference.npy`)
+- [x] Causal behavioural explainability engine (`backend/app/explainability/explainer.py`)
+- [x] SQLite schema, parameterized repository, and idempotent test-partition importer (`backend/app/database/`, `scripts/init_and_import_db.py`)
+- [x] FastAPI `/api/v1` REST API (`15` endpoints, Pydantic v2 schemas, localhost CORS)
+- [x] Phase 3 unit, integration, and live HTTP smoke tests (`29` total Pytest tests passing)
+
+## Planned (Phase 4)
+- [ ] Phase 4: React + Vite + TypeScript + Tailwind CSS + Recharts security monitoring dashboard (`frontend/`)
 

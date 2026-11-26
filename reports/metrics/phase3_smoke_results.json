@@ -1,0 +1,1550 @@
+{
+  "status_codes": {
+    "/docs": 200,
+    "/api/v1/health": 200,
+    "/api/v1/dashboard/summary": 200,
+    "/api/v1/dashboard/trends": 200,
+    "/api/v1/employees?page=1&page_size=5": 200,
+    "/api/v1/anomalies?page=1&page_size=5": 200,
+    "/api/v1/alerts?priority=Critical&page=1&page_size=3": 200,
+    "/api/v1/model/info": 200,
+    "/api/v1/model/metrics": 200,
+    "/api/v1/data/summary": 200,
+    "/api/v1/alerts/1184": 200,
+    "/api/v1/alerts/1184/history": 200,
+    "/api/v1/employees/BMG0917": 200,
+    "/api/v1/employees/BMG0917/history?page=1&page_size=5": 200,
+    "POST /api/v1/model/predict": 200
+  },
+  "samples": {
+    "/api/v1/health": {
+      "status": "ok",
+      "phase": "3",
+      "model_loaded": true,
+      "database_ready": true
+    },
+    "/api/v1/dashboard/summary": {
+      "unique_employees": 877,
+      "total_observations": 61473,
+      "flagged_observations": 10271,
+      "total_alerts": 10271,
+      "open_alerts": 10271,
+      "under_review_alerts": 0,
+      "resolved_alerts": 0,
+      "dismissed_alerts": 0,
+      "alerts_by_priority": {
+        "Critical": 541,
+        "High": 497,
+        "Medium": 5644,
+        "Low": 3589
+      },
+      "top_employees": [
+        {
+          "employee_id": "BMG0917",
+          "role": "Physicist",
+          "department": "1 - Research",
+          "alert_count": 71,
+          "max_risk_score": 99.99506676313885,
+          "max_anomaly_score": 0.23446974714198554
+        },
+        {
+          "employee_id": "DMK0257",
+          "role": "ElectricalEngineer",
+          "department": "3 - Engineering",
+          "alert_count": 34,
+          "max_risk_score": 99.98848911399067,
+          "max_anomaly_score": 0.22853070326434133
+        },
+        {
+          "employee_id": "IBB0359",
+          "role": "ITAdmin",
+          "department": "6 - Security",
+          "alert_count": 70,
+          "max_risk_score": 99.98520028941657,
+          "max_anomaly_score": 0.22684678052073515
+        },
+        {
+          "employee_id": "DLM0051",
+          "role": "Director",
+          "department": "3 - Engineering",
+          "alert_count": 93,
+          "max_risk_score": 99.98355587712952,
+          "max_anomaly_score": 0.22648144388916502
+        },
+        {
+          "employee_id": "RSC0089",
+          "role": "ElectricalEngineer",
+          "department": "3 - Engineering",
+          "alert_count": 75,
+          "max_risk_score": 99.97697822798132,
+          "max_anomaly_score": 0.22455813350132192
+        },
+        {
+          "employee_id": "EIS0041",
+          "role": "ITAdmin",
+          "department": "6 - Security",
+          "alert_count": 70,
+          "max_risk_score": 99.97697822798132,
+          "max_anomaly_score": 0.223885967905049
+        },
+        {
+          "employee_id": "ATP0662",
+          "role": "Manager",
+          "department": "2 - SoftwareManagement",
+          "alert_count": 50,
+          "max_risk_score": 99.97204499112019,
+          "max_anomaly_score": 0.22273822285944622
+        },
+        {
+          "employee_id": "KKW0879",
+          "role": "Salesman",
+          "department": "2 - Sales",
+          "alert_count": 77,
+          "max_risk_score": 99.97040057883314,
+          "max_anomaly_score": 0.22146718573551305
+        },
+        {
+          "employee_id": "AMR0318",
+          "role": "Salesman",
+          "department": "2 - Sales",
+          "alert_count": 19,
+          "max_risk_score": 99.96546734197199,
+          "max_anomaly_score": 0.22020656592541976
+        },
+        {
+          "employee_id": "BWP0202",
+          "role": "Attorney",
+          "department": "3 - Contracts",
+          "alert_count": 21,
+          "max_risk_score": 99.96217851739789,
+          "max_anomaly_score": 0.21904200199461565
+        }
+      ],
+      "recent_investigations": [],
+      "model_version": "isolation_forest_v1",
+      "coverage_start_date": "2011-02-06",
+      "coverage_end_date": "2011-05-17"
+    },
+    "/api/v1/dashboard/trends": {
+      "items": [
+        {
+          "activity_date": "2011-02-06",
+          "total_observations": 42,
+          "flagged_count": 42,
+          "high_critical_count": 11,
+          "avg_risk_score": 94.63
+        },
+        {
+          "activity_date": "2011-02-07",
+          "total_observations": 877,
+          "flagged_count": 140,
+          "high_critical_count": 12,
+          "avg_risk_score": 51.11
+        },
+        {
+          "activity_date": "2011-02-08",
+          "total_observations": 877,
+          "flagged_count": 142,
+          "high_critical_count": 9,
+          "avg_risk_score": 49.33
+        },
+        {
+          "activity_date": "2011-02-09",
+          "total_observations": 877,
+          "flagged_count": 143,
+          "high_critical_count": 14,
+          "avg_risk_score": 49.52
+        },
+        {
+          "activity_date": "2011-02-10",
+          "total_observations": 876,
+          "flagged_count": 132,
+          "high_critical_count": 11,
+          "avg_risk_score": 49.09
+        },
+        {
+          "activity_date": "2011-02-11",
+          "total_observations": 876,
+          "flagged_count": 131,
+          "high_critical_count": 8,
+          "avg_risk_score": 48.47
+        },
+        {
+          "activity_date": "2011-02-12",
+          "total_observations": 45,
+          "flagged_count": 45,
+          "high_critical_count": 11,
+          "avg_risk_score": 94.6
+        },
+        {
+          "activity_date": "2011-02-13",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 14,
+          "avg_risk_score": 94.51
+        },
+        {
+          "activity_date": "2011-02-14",
+          "total_observations": 874,
+          "flagged_count": 134,
+          "high_critical_count": 6,
+          "avg_risk_score": 48.9
+        },
+        {
+          "activity_date": "2011-02-15",
+          "total_observations": 873,
+          "flagged_count": 135,
+          "high_critical_count": 10,
+          "avg_risk_score": 51.18
+        },
+        {
+          "activity_date": "2011-02-16",
+          "total_observations": 873,
+          "flagged_count": 137,
+          "high_critical_count": 7,
+          "avg_risk_score": 49.36
+        },
+        {
+          "activity_date": "2011-02-17",
+          "total_observations": 873,
+          "flagged_count": 124,
+          "high_critical_count": 10,
+          "avg_risk_score": 48.63
+        },
+        {
+          "activity_date": "2011-02-18",
+          "total_observations": 873,
+          "flagged_count": 122,
+          "high_critical_count": 13,
+          "avg_risk_score": 48.6
+        },
+        {
+          "activity_date": "2011-02-19",
+          "total_observations": 39,
+          "flagged_count": 39,
+          "high_critical_count": 20,
+          "avg_risk_score": 96.57
+        },
+        {
+          "activity_date": "2011-02-20",
+          "total_observations": 42,
+          "flagged_count": 42,
+          "high_critical_count": 17,
+          "avg_risk_score": 95.88
+        },
+        {
+          "activity_date": "2011-02-21",
+          "total_observations": 873,
+          "flagged_count": 122,
+          "high_critical_count": 6,
+          "avg_risk_score": 48.46
+        },
+        {
+          "activity_date": "2011-02-22",
+          "total_observations": 872,
+          "flagged_count": 132,
+          "high_critical_count": 14,
+          "avg_risk_score": 49.41
+        },
+        {
+          "activity_date": "2011-02-23",
+          "total_observations": 871,
+          "flagged_count": 135,
+          "high_critical_count": 11,
+          "avg_risk_score": 49.39
+        },
+        {
+          "activity_date": "2011-02-24",
+          "total_observations": 870,
+          "flagged_count": 130,
+          "high_critical_count": 9,
+          "avg_risk_score": 48.06
+        },
+        {
+          "activity_date": "2011-02-25",
+          "total_observations": 869,
+          "flagged_count": 126,
+          "high_critical_count": 12,
+          "avg_risk_score": 48.89
+        },
+        {
+          "activity_date": "2011-02-26",
+          "total_observations": 50,
+          "flagged_count": 50,
+          "high_critical_count": 21,
+          "avg_risk_score": 96.12
+        },
+        {
+          "activity_date": "2011-02-27",
+          "total_observations": 44,
+          "flagged_count": 44,
+          "high_critical_count": 8,
+          "avg_risk_score": 94.47
+        },
+        {
+          "activity_date": "2011-02-28",
+          "total_observations": 868,
+          "flagged_count": 121,
+          "high_critical_count": 8,
+          "avg_risk_score": 47.76
+        },
+        {
+          "activity_date": "2011-03-01",
+          "total_observations": 868,
+          "flagged_count": 129,
+          "high_critical_count": 11,
+          "avg_risk_score": 49.28
+        },
+        {
+          "activity_date": "2011-03-02",
+          "total_observations": 868,
+          "flagged_count": 135,
+          "high_critical_count": 12,
+          "avg_risk_score": 47.65
+        },
+        {
+          "activity_date": "2011-03-03",
+          "total_observations": 868,
+          "flagged_count": 132,
+          "high_critical_count": 6,
+          "avg_risk_score": 48.32
+        },
+        {
+          "activity_date": "2011-03-04",
+          "total_observations": 868,
+          "flagged_count": 119,
+          "high_critical_count": 4,
+          "avg_risk_score": 47.65
+        },
+        {
+          "activity_date": "2011-03-05",
+          "total_observations": 41,
+          "flagged_count": 41,
+          "high_critical_count": 13,
+          "avg_risk_score": 95.55
+        },
+        {
+          "activity_date": "2011-03-06",
+          "total_observations": 40,
+          "flagged_count": 40,
+          "high_critical_count": 15,
+          "avg_risk_score": 95.68
+        },
+        {
+          "activity_date": "2011-03-07",
+          "total_observations": 865,
+          "flagged_count": 151,
+          "high_critical_count": 10,
+          "avg_risk_score": 50.19
+        },
+        {
+          "activity_date": "2011-03-08",
+          "total_observations": 865,
+          "flagged_count": 126,
+          "high_critical_count": 8,
+          "avg_risk_score": 48.24
+        },
+        {
+          "activity_date": "2011-03-09",
+          "total_observations": 864,
+          "flagged_count": 131,
+          "high_critical_count": 5,
+          "avg_risk_score": 48.6
+        },
+        {
+          "activity_date": "2011-03-10",
+          "total_observations": 864,
+          "flagged_count": 130,
+          "high_critical_count": 10,
+          "avg_risk_score": 48.7
+        },
+        {
+          "activity_date": "2011-03-11",
+          "total_observations": 863,
+          "flagged_count": 117,
+          "high_critical_count": 6,
+          "avg_risk_score": 47.72
+        },
+        {
+          "activity_date": "2011-03-12",
+          "total_observations": 47,
+          "flagged_count": 47,
+          "high_critical_count": 13,
+          "avg_risk_score": 95.12
+        },
+        {
+          "activity_date": "2011-03-13",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 12,
+          "avg_risk_score": 94.73
+        },
+        {
+          "activity_date": "2011-03-14",
+          "total_observations": 862,
+          "flagged_count": 131,
+          "high_critical_count": 9,
+          "avg_risk_score": 48.47
+        },
+        {
+          "activity_date": "2011-03-15",
+          "total_observations": 862,
+          "flagged_count": 144,
+          "high_critical_count": 13,
+          "avg_risk_score": 50.09
+        },
+        {
+          "activity_date": "2011-03-16",
+          "total_observations": 862,
+          "flagged_count": 133,
+          "high_critical_count": 9,
+          "avg_risk_score": 48.52
+        },
+        {
+          "activity_date": "2011-03-17",
+          "total_observations": 862,
+          "flagged_count": 139,
+          "high_critical_count": 8,
+          "avg_risk_score": 50.23
+        },
+        {
+          "activity_date": "2011-03-18",
+          "total_observations": 861,
+          "flagged_count": 138,
+          "high_critical_count": 7,
+          "avg_risk_score": 49.83
+        },
+        {
+          "activity_date": "2011-03-19",
+          "total_observations": 46,
+          "flagged_count": 46,
+          "high_critical_count": 23,
+          "avg_risk_score": 96.11
+        },
+        {
+          "activity_date": "2011-03-20",
+          "total_observations": 39,
+          "flagged_count": 39,
+          "high_critical_count": 15,
+          "avg_risk_score": 95.91
+        },
+        {
+          "activity_date": "2011-03-21",
+          "total_observations": 859,
+          "flagged_count": 125,
+          "high_critical_count": 6,
+          "avg_risk_score": 48.52
+        },
+        {
+          "activity_date": "2011-03-22",
+          "total_observations": 859,
+          "flagged_count": 138,
+          "high_critical_count": 10,
+          "avg_risk_score": 48.06
+        },
+        {
+          "activity_date": "2011-03-23",
+          "total_observations": 858,
+          "flagged_count": 134,
+          "high_critical_count": 8,
+          "avg_risk_score": 49.07
+        },
+        {
+          "activity_date": "2011-03-24",
+          "total_observations": 858,
+          "flagged_count": 122,
+          "high_critical_count": 7,
+          "avg_risk_score": 48.09
+        },
+        {
+          "activity_date": "2011-03-25",
+          "total_observations": 857,
+          "flagged_count": 141,
+          "high_critical_count": 6,
+          "avg_risk_score": 48.49
+        },
+        {
+          "activity_date": "2011-03-26",
+          "total_observations": 37,
+          "flagged_count": 37,
+          "high_critical_count": 18,
+          "avg_risk_score": 95.96
+        },
+        {
+          "activity_date": "2011-03-27",
+          "total_observations": 44,
+          "flagged_count": 44,
+          "high_critical_count": 13,
+          "avg_risk_score": 94.96
+        },
+        {
+          "activity_date": "2011-03-28",
+          "total_observations": 857,
+          "flagged_count": 130,
+          "high_critical_count": 11,
+          "avg_risk_score": 49.14
+        },
+        {
+          "activity_date": "2011-03-29",
+          "total_observations": 857,
+          "flagged_count": 129,
+          "high_critical_count": 8,
+          "avg_risk_score": 50.03
+        },
+        {
+          "activity_date": "2011-03-30",
+          "total_observations": 857,
+          "flagged_count": 143,
+          "high_critical_count": 13,
+          "avg_risk_score": 50.79
+        },
+        {
+          "activity_date": "2011-03-31",
+          "total_observations": 857,
+          "flagged_count": 131,
+          "high_critical_count": 5,
+          "avg_risk_score": 48.28
+        },
+        {
+          "activity_date": "2011-04-01",
+          "total_observations": 857,
+          "flagged_count": 120,
+          "high_critical_count": 7,
+          "avg_risk_score": 48.17
+        },
+        {
+          "activity_date": "2011-04-02",
+          "total_observations": 39,
+          "flagged_count": 39,
+          "high_critical_count": 21,
+          "avg_risk_score": 96.57
+        },
+        {
+          "activity_date": "2011-04-03",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 13,
+          "avg_risk_score": 94.69
+        },
+        {
+          "activity_date": "2011-04-04",
+          "total_observations": 857,
+          "flagged_count": 138,
+          "high_critical_count": 8,
+          "avg_risk_score": 50.4
+        },
+        {
+          "activity_date": "2011-04-05",
+          "total_observations": 857,
+          "flagged_count": 141,
+          "high_critical_count": 11,
+          "avg_risk_score": 51.12
+        },
+        {
+          "activity_date": "2011-04-06",
+          "total_observations": 856,
+          "flagged_count": 139,
+          "high_critical_count": 6,
+          "avg_risk_score": 49.91
+        },
+        {
+          "activity_date": "2011-04-07",
+          "total_observations": 855,
+          "flagged_count": 133,
+          "high_critical_count": 7,
+          "avg_risk_score": 48.94
+        },
+        {
+          "activity_date": "2011-04-08",
+          "total_observations": 855,
+          "flagged_count": 132,
+          "high_critical_count": 8,
+          "avg_risk_score": 47.96
+        },
+        {
+          "activity_date": "2011-04-09",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 14,
+          "avg_risk_score": 94.7
+        },
+        {
+          "activity_date": "2011-04-10",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 11,
+          "avg_risk_score": 94.13
+        },
+        {
+          "activity_date": "2011-04-11",
+          "total_observations": 855,
+          "flagged_count": 115,
+          "high_critical_count": 7,
+          "avg_risk_score": 48.12
+        },
+        {
+          "activity_date": "2011-04-12",
+          "total_observations": 853,
+          "flagged_count": 118,
+          "high_critical_count": 4,
+          "avg_risk_score": 47.37
+        },
+        {
+          "activity_date": "2011-04-13",
+          "total_observations": 852,
+          "flagged_count": 115,
+          "high_critical_count": 6,
+          "avg_risk_score": 47.68
+        },
+        {
+          "activity_date": "2011-04-14",
+          "total_observations": 852,
+          "flagged_count": 121,
+          "high_critical_count": 6,
+          "avg_risk_score": 47.76
+        },
+        {
+          "activity_date": "2011-04-15",
+          "total_observations": 852,
+          "flagged_count": 124,
+          "high_critical_count": 5,
+          "avg_risk_score": 47.76
+        },
+        {
+          "activity_date": "2011-04-16",
+          "total_observations": 45,
+          "flagged_count": 45,
+          "high_critical_count": 13,
+          "avg_risk_score": 94.55
+        },
+        {
+          "activity_date": "2011-04-17",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 11,
+          "avg_risk_score": 94.69
+        },
+        {
+          "activity_date": "2011-04-18",
+          "total_observations": 852,
+          "flagged_count": 106,
+          "high_critical_count": 6,
+          "avg_risk_score": 47.57
+        },
+        {
+          "activity_date": "2011-04-19",
+          "total_observations": 851,
+          "flagged_count": 115,
+          "high_critical_count": 6,
+          "avg_risk_score": 47.27
+        },
+        {
+          "activity_date": "2011-04-20",
+          "total_observations": 851,
+          "flagged_count": 130,
+          "high_critical_count": 5,
+          "avg_risk_score": 47.47
+        },
+        {
+          "activity_date": "2011-04-21",
+          "total_observations": 850,
+          "flagged_count": 114,
+          "high_critical_count": 9,
+          "avg_risk_score": 46.96
+        },
+        {
+          "activity_date": "2011-04-22",
+          "total_observations": 41,
+          "flagged_count": 11,
+          "high_critical_count": 5,
+          "avg_risk_score": 72.95
+        },
+        {
+          "activity_date": "2011-04-23",
+          "total_observations": 47,
+          "flagged_count": 47,
+          "high_critical_count": 16,
+          "avg_risk_score": 94.85
+        },
+        {
+          "activity_date": "2011-04-24",
+          "total_observations": 44,
+          "flagged_count": 44,
+          "high_critical_count": 14,
+          "avg_risk_score": 94.61
+        },
+        {
+          "activity_date": "2011-04-25",
+          "total_observations": 850,
+          "flagged_count": 120,
+          "high_critical_count": 5,
+          "avg_risk_score": 47.33
+        },
+        {
+          "activity_date": "2011-04-26",
+          "total_observations": 850,
+          "flagged_count": 136,
+          "high_critical_count": 10,
+          "avg_risk_score": 49.08
+        },
+        {
+          "activity_date": "2011-04-27",
+          "total_observations": 849,
+          "flagged_count": 118,
+          "high_critical_count": 5,
+          "avg_risk_score": 46.98
+        },
+        {
+          "activity_date": "2011-04-28",
+          "total_observations": 849,
+          "flagged_count": 112,
+          "high_critical_count": 9,
+          "avg_risk_score": 46.85
+        },
+        {
+          "activity_date": "2011-04-29",
+          "total_observations": 849,
+          "flagged_count": 102,
+          "high_critical_count": 7,
+          "avg_risk_score": 46.76
+        },
+        {
+          "activity_date": "2011-04-30",
+          "total_observations": 50,
+          "flagged_count": 50,
+          "high_critical_count": 15,
+          "avg_risk_score": 95.69
+        },
+        {
+          "activity_date": "2011-05-01",
+          "total_observations": 44,
+          "flagged_count": 44,
+          "high_critical_count": 10,
+          "avg_risk_score": 94.08
+        },
+        {
+          "activity_date": "2011-05-02",
+          "total_observations": 846,
+          "flagged_count": 110,
+          "high_critical_count": 10,
+          "avg_risk_score": 46.73
+        },
+        {
+          "activity_date": "2011-05-03",
+          "total_observations": 846,
+          "flagged_count": 120,
+          "high_critical_count": 10,
+          "avg_risk_score": 47.55
+        },
+        {
+          "activity_date": "2011-05-04",
+          "total_observations": 846,
+          "flagged_count": 129,
+          "high_critical_count": 9,
+          "avg_risk_score": 48.86
+        },
+        {
+          "activity_date": "2011-05-05",
+          "total_observations": 846,
+          "flagged_count": 131,
+          "high_critical_count": 12,
+          "avg_risk_score": 49.93
+        },
+        {
+          "activity_date": "2011-05-06",
+          "total_observations": 846,
+          "flagged_count": 132,
+          "high_critical_count": 10,
+          "avg_risk_score": 47.8
+        },
+        {
+          "activity_date": "2011-05-07",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 18,
+          "avg_risk_score": 96.12
+        },
+        {
+          "activity_date": "2011-05-08",
+          "total_observations": 44,
+          "flagged_count": 44,
+          "high_critical_count": 12,
+          "avg_risk_score": 94.38
+        },
+        {
+          "activity_date": "2011-05-09",
+          "total_observations": 846,
+          "flagged_count": 121,
+          "high_critical_count": 6,
+          "avg_risk_score": 47.71
+        },
+        {
+          "activity_date": "2011-05-10",
+          "total_observations": 846,
+          "flagged_count": 121,
+          "high_critical_count": 6,
+          "avg_risk_score": 48.69
+        },
+        {
+          "activity_date": "2011-05-11",
+          "total_observations": 846,
+          "flagged_count": 119,
+          "high_critical_count": 8,
+          "avg_risk_score": 47.87
+        },
+        {
+          "activity_date": "2011-05-12",
+          "total_observations": 846,
+          "flagged_count": 136,
+          "high_critical_count": 6,
+          "avg_risk_score": 49.45
+        },
+        {
+          "activity_date": "2011-05-13",
+          "total_observations": 845,
+          "flagged_count": 137,
+          "high_critical_count": 15,
+          "avg_risk_score": 50.53
+        },
+        {
+          "activity_date": "2011-05-14",
+          "total_observations": 66,
+          "flagged_count": 66,
+          "high_critical_count": 34,
+          "avg_risk_score": 96.34
+        },
+        {
+          "activity_date": "2011-05-15",
+          "total_observations": 43,
+          "flagged_count": 43,
+          "high_critical_count": 13,
+          "avg_risk_score": 94.76
+        },
+        {
+          "activity_date": "2011-05-16",
+          "total_observations": 845,
+          "flagged_count": 118,
+          "high_critical_count": 9,
+          "avg_risk_score": 48.6
+        },
+        {
+          "activity_date": "2011-05-17",
+          "total_observations": 4,
+          "flagged_count": 4,
+          "high_critical_count": 4,
+          "avg_risk_score": 99.68
+        }
+      ]
+    },
+    "/api/v1/employees?page=1&page_size=5": {
+      "items": [
+        {
+          "employee_id": "BMG0917",
+          "role": "Physicist",
+          "department": "1 - Research",
+          "functional_unit": "2 - ResearchAndEngineering",
+          "first_activity_date": "2011-02-07",
+          "last_activity_date": "2011-05-16",
+          "observation_count": 71,
+          "max_risk_score": 99.99506676313885,
+          "alert_count": 71,
+          "open_alert_count": 71
+        },
+        {
+          "employee_id": "DMK0257",
+          "role": "ElectricalEngineer",
+          "department": "3 - Engineering",
+          "functional_unit": "2 - ResearchAndEngineering",
+          "first_activity_date": "2011-02-07",
+          "last_activity_date": "2011-05-16",
+          "observation_count": 72,
+          "max_risk_score": 99.98848911399067,
+          "alert_count": 34,
+          "open_alert_count": 34
+        },
+        {
+          "employee_id": "IBB0359",
+          "role": "ITAdmin",
+          "department": "6 - Security",
+          "functional_unit": "1 - Adminstration",
+          "first_activity_date": "2011-02-07",
+          "last_activity_date": "2011-05-16",
+          "observation_count": 70,
+          "max_risk_score": 99.98520028941657,
+          "alert_count": 70,
+          "open_alert_count": 70
+        },
+        {
+          "employee_id": "DLM0051",
+          "role": "Director",
+          "department": "3 - Engineering",
+          "functional_unit": "2 - ResearchAndEngineering",
+          "first_activity_date": "2011-02-06",
+          "last_activity_date": "2011-05-16",
+          "observation_count": 93,
+          "max_risk_score": 99.98355587712952,
+          "alert_count": 93,
+          "open_alert_count": 93
+        },
+        {
+          "employee_id": "EIS0041",
+          "role": "ITAdmin",
+          "department": "6 - Security",
+          "functional_unit": "1 - Adminstration",
+          "first_activity_date": "2011-02-07",
+          "last_activity_date": "2011-05-16",
+          "observation_count": 70,
+          "max_risk_score": 99.97697822798132,
+          "alert_count": 70,
+          "open_alert_count": 70
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "page_size": 5,
+        "total": 877,
+        "total_pages": 176
+      }
+    },
+    "/api/v1/anomalies?page=1&page_size=5": {
+      "items": [
+        {
+          "observation_id": 7465,
+          "employee_id": "BMG0917",
+          "activity_date": "2011-03-19",
+          "login_count": 2,
+          "after_hours_login_count": 2,
+          "http_activity_count": 0,
+          "email_activity_count": 0,
+          "file_activity_count": 0,
+          "usb_activity_count": 0,
+          "total_activity_count": 2,
+          "anomaly_score": 0.23446974714198554,
+          "risk_score": 99.99506676313885,
+          "priority": "Critical",
+          "alert_id": 1184,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 16328,
+          "employee_id": "DMK0257",
+          "activity_date": "2011-03-19",
+          "login_count": 2,
+          "after_hours_login_count": 2,
+          "http_activity_count": 0,
+          "email_activity_count": 0,
+          "file_activity_count": 0,
+          "usb_activity_count": 0,
+          "total_activity_count": 2,
+          "anomaly_score": 0.22853070326434133,
+          "risk_score": 99.98848911399067,
+          "priority": "Critical",
+          "alert_id": 2738,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 26730,
+          "employee_id": "IBB0359",
+          "activity_date": "2011-04-29",
+          "login_count": 13,
+          "after_hours_login_count": 10,
+          "http_activity_count": 114,
+          "email_activity_count": 5,
+          "file_activity_count": 30,
+          "usb_activity_count": 26,
+          "total_activity_count": 188,
+          "anomaly_score": 0.22684678052073515,
+          "risk_score": 99.98520028941657,
+          "priority": "Critical",
+          "alert_id": 4340,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 16065,
+          "employee_id": "DLM0051",
+          "activity_date": "2011-02-06",
+          "login_count": 5,
+          "after_hours_login_count": 5,
+          "http_activity_count": 190,
+          "email_activity_count": 18,
+          "file_activity_count": 19,
+          "usb_activity_count": 19,
+          "total_activity_count": 251,
+          "anomaly_score": 0.22648144388916502,
+          "risk_score": 99.98355587712952,
+          "priority": "Critical",
+          "alert_id": 2577,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 50463,
+          "employee_id": "RSC0089",
+          "activity_date": "2011-03-12",
+          "login_count": 2,
+          "after_hours_login_count": 2,
+          "http_activity_count": 0,
+          "email_activity_count": 0,
+          "file_activity_count": 0,
+          "usb_activity_count": 0,
+          "total_activity_count": 2,
+          "anomaly_score": 0.22455813350132192,
+          "risk_score": 99.97697822798132,
+          "priority": "Critical",
+          "alert_id": 8609,
+          "alert_status": "OPEN"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "page_size": 5,
+        "total": 10271,
+        "total_pages": 2055
+      }
+    },
+    "/api/v1/alerts?priority=Critical&page=1&page_size=3": {
+      "items": [
+        {
+          "alert_id": 1184,
+          "observation_id": 7465,
+          "employee_id": "BMG0917",
+          "role": "Physicist",
+          "department": "1 - Research",
+          "activity_date": "2011-03-19",
+          "anomaly_score": 0.23446974714198554,
+          "risk_score": 99.99506676313885,
+          "priority": "Critical",
+          "status": "OPEN",
+          "model_version": "isolation_forest_v1",
+          "created_at": "2026-11-26T12:07:31+00:00",
+          "updated_at": "2026-11-26T12:07:31+00:00"
+        },
+        {
+          "alert_id": 2738,
+          "observation_id": 16328,
+          "employee_id": "DMK0257",
+          "role": "ElectricalEngineer",
+          "department": "3 - Engineering",
+          "activity_date": "2011-03-19",
+          "anomaly_score": 0.22853070326434133,
+          "risk_score": 99.98848911399067,
+          "priority": "Critical",
+          "status": "OPEN",
+          "model_version": "isolation_forest_v1",
+          "created_at": "2026-11-26T12:07:31+00:00",
+          "updated_at": "2026-11-26T12:07:31+00:00"
+        },
+        {
+          "alert_id": 4340,
+          "observation_id": 26730,
+          "employee_id": "IBB0359",
+          "role": "ITAdmin",
+          "department": "6 - Security",
+          "activity_date": "2011-04-29",
+          "anomaly_score": 0.22684678052073515,
+          "risk_score": 99.98520028941657,
+          "priority": "Critical",
+          "status": "OPEN",
+          "model_version": "isolation_forest_v1",
+          "created_at": "2026-11-26T12:07:31+00:00",
+          "updated_at": "2026-11-26T12:07:31+00:00"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "page_size": 3,
+        "total": 541,
+        "total_pages": 181
+      }
+    },
+    "/api/v1/model/info": {
+      "model_version": "full_engineered_20",
+      "algorithm": "IsolationForest",
+      "scaled": false,
+      "feature_count": 20,
+      "feature_names": [
+        "login_count",
+        "after_hours_login_count",
+        "http_activity_count",
+        "email_activity_count",
+        "file_activity_count",
+        "usb_activity_count",
+        "total_activity_count",
+        "after_hours_ratio",
+        "is_weekend",
+        "log_http_activity",
+        "log_email_activity",
+        "log_file_activity",
+        "log_usb_activity",
+        "login_hist_dev_14obs",
+        "after_hours_hist_dev_14obs",
+        "http_hist_dev_14obs",
+        "email_hist_dev_14obs",
+        "file_hist_dev_14obs",
+        "usb_hist_dev_14obs",
+        "total_activity_hist_dev_14obs"
+      ],
+      "hyperparameters": {
+        "n_estimators": 200,
+        "max_samples": 256,
+        "contamination": "auto",
+        "random_state": 42
+      },
+      "calibrated_thresholds": {
+        "f1_optimal_threshold": -0.04226230960953481,
+        "top_1pct_threshold": 0.12598789585707226,
+        "top_2pct_threshold": 0.09913609888340638,
+        "sklearn_default_zero_threshold": 0.0
+      },
+      "disclaimer": "Anomaly and risk scores are statistical prioritization indicators of behavioural deviation; they do not represent probabilities or definitive evidence of malicious intent."
+    },
+    "/api/v1/model/metrics": {
+      "model_version": "full_engineered_20",
+      "metric_definitions": {
+        "roc_auc": "Threshold-independent ranking metric (NOT classification accuracy).",
+        "average_precision": "sklearn average_precision_score across all thresholds.",
+        "trapezoidal_pr_auc": "Trapezoidal area under the precision-recall curve."
+      },
+      "validation_ablation": {
+        "raw_baseline_6": {
+          "n_samples": 60812,
+          "n_positives": 255,
+          "base_positive_rate": 0.004193,
+          "roc_auc": 0.8393,
+          "pr_auc": 0.0127,
+          "score_summary": {
+            "min": -0.1637,
+            "median": -0.1342,
+            "p95": 0.1087,
+            "p99": 0.1707,
+            "max": 0.2953
+          },
+          "top_k": {
+            "top_100": {
+              "k": 100,
+              "hits": 2,
+              "precision_at_k": 0.02,
+              "recall_at_k": 0.0078,
+              "lift_over_base_rate": 4.77
+            },
+            "top_250": {
+              "k": 250,
+              "hits": 3,
+              "precision_at_k": 0.012,
+              "recall_at_k": 0.0118,
+              "lift_over_base_rate": 2.86
+            },
+            "top_500": {
+              "k": 500,
+              "hits": 3,
+              "precision_at_k": 0.006,
+              "recall_at_k": 0.0118,
+              "lift_over_base_rate": 1.43
+            },
+            "top_1000": {
+              "k": 1000,
+              "hits": 4,
+              "precision_at_k": 0.004,
+              "recall_at_k": 0.0157,
+              "lift_over_base_rate": 0.95
+            }
+          },
+          "fit_seconds": 2.372,
+          "feature_count": 6
+        },
+        "full_engineered_20": {
+          "n_samples": 60812,
+          "n_positives": 255,
+          "base_positive_rate": 0.004193,
+          "roc_auc": 0.8826,
+          "pr_auc": 0.0177,
+          "score_summary": {
+            "min": -0.1764,
+            "median": -0.1483,
+            "p95": 0.0552,
+            "p99": 0.126,
+            "max": 0.2484
+          },
+          "top_k": {
+            "top_100": {
+              "k": 100,
+              "hits": 1,
+              "precision_at_k": 0.01,
+              "recall_at_k": 0.0039,
+              "lift_over_base_rate": 2.38
+            },
+            "top_250": {
+              "k": 250,
+              "hits": 7,
+              "precision_at_k": 0.028,
+              "recall_at_k": 0.0275,
+              "lift_over_base_rate": 6.68
+            },
+            "top_500": {
+              "k": 500,
+              "hits": 12,
+              "precision_at_k": 0.024,
+              "recall_at_k": 0.0471,
+              "lift_over_base_rate": 5.72
+            },
+            "top_1000": {
+              "k": 1000,
+              "hits": 17,
+              "precision_at_k": 0.017,
+              "recall_at_k": 0.0667,
+              "lift_over_base_rate": 4.05
+            }
+          },
+          "fit_seconds": 1.655,
+          "feature_count": 20
+        }
+      },
+      "validation_trapezoidal_pr_auc": 0.0175,
+      "validation_threshold_metrics": {
+        "f1_optimal_threshold": {
+          "threshold": -0.042262,
+          "tp": 210,
+          "fp": 10449,
+          "tn": 50108,
+          "fn": 45,
+          "precision": 0.0197,
+          "recall": 0.8235,
+          "f1": 0.0385,
+          "fpr": 0.1725,
+          "specificity": 0.8275,
+          "total_alerts": 10659,
+          "alert_rate_pct": 17.5278,
+          "avg_alerts_per_date": 106.59
+        },
+        "top_1pct_threshold": {
+          "threshold": 0.125988,
+          "tp": 13,
+          "fp": 596,
+          "tn": 59961,
+          "fn": 242,
+          "precision": 0.0213,
+          "recall": 0.051,
+          "f1": 0.0301,
+          "fpr": 0.0098,
+          "specificity": 0.9902,
+          "total_alerts": 609,
+          "alert_rate_pct": 1.0014,
+          "avg_alerts_per_date": 6.09
+        },
+        "top_2pct_threshold": {
+          "threshold": 0.099136,
+          "tp": 24,
+          "fp": 1193,
+          "tn": 59364,
+          "fn": 231,
+          "precision": 0.0197,
+          "recall": 0.0941,
+          "f1": 0.0326,
+          "fpr": 0.0197,
+          "specificity": 0.9803,
+          "total_alerts": 1217,
+          "alert_rate_pct": 2.0012,
+          "avg_alerts_per_date": 12.17
+        },
+        "sklearn_default_zero_threshold": {
+          "threshold": 0.0,
+          "tp": 121,
+          "fp": 6918,
+          "tn": 53639,
+          "fn": 134,
+          "precision": 0.0172,
+          "recall": 0.4745,
+          "f1": 0.0332,
+          "fpr": 0.1142,
+          "specificity": 0.8858,
+          "total_alerts": 7039,
+          "alert_rate_pct": 11.575,
+          "avg_alerts_per_date": 70.39
+        }
+      },
+      "held_out_test_summary": {
+        "n_samples": 61473,
+        "n_positives": 154,
+        "base_positive_rate": 0.002505,
+        "roc_auc": 0.8843,
+        "average_precision": 0.0105,
+        "trapezoidal_pr_auc": 0.0103
+      },
+      "held_out_test_threshold_metrics": {
+        "f1_optimal_threshold": {
+          "threshold": -0.042262,
+          "tp": 123,
+          "fp": 10148,
+          "tn": 51171,
+          "fn": 31,
+          "precision": 0.012,
+          "recall": 0.7987,
+          "f1": 0.0236,
+          "fpr": 0.1655,
+          "specificity": 0.8345,
+          "total_alerts": 10271,
+          "alert_rate_pct": 16.7081,
+          "avg_alerts_per_date": 101.69
+        },
+        "top_1pct_threshold": {
+          "threshold": 0.125988,
+          "tp": 2,
+          "fp": 539,
+          "tn": 60780,
+          "fn": 152,
+          "precision": 0.0037,
+          "recall": 0.013,
+          "f1": 0.0058,
+          "fpr": 0.0088,
+          "specificity": 0.9912,
+          "total_alerts": 541,
+          "alert_rate_pct": 0.8801,
+          "avg_alerts_per_date": 5.36
+        },
+        "top_2pct_threshold": {
+          "threshold": 0.099136,
+          "tp": 10,
+          "fp": 1028,
+          "tn": 60291,
+          "fn": 144,
+          "precision": 0.0096,
+          "recall": 0.0649,
+          "f1": 0.0168,
+          "fpr": 0.0168,
+          "specificity": 0.9832,
+          "total_alerts": 1038,
+          "alert_rate_pct": 1.6885,
+          "avg_alerts_per_date": 10.28
+        },
+        "sklearn_default_zero_threshold": {
+          "threshold": 0.0,
+          "tp": 74,
+          "fp": 6608,
+          "tn": 54711,
+          "fn": 80,
+          "precision": 0.0111,
+          "recall": 0.4805,
+          "f1": 0.0217,
+          "fpr": 0.1078,
+          "specificity": 0.8922,
+          "total_alerts": 6682,
+          "alert_rate_pct": 10.8698,
+          "avg_alerts_per_date": 66.16
+        }
+      }
+    },
+    "/api/v1/data/summary": {
+      "source_partition": "held_out_test_partition",
+      "unique_employees": 877,
+      "observation_count": 61473,
+      "unique_dates": 101,
+      "date_min": "2011-02-06",
+      "date_max": "2011-05-17",
+      "alert_count": 10271,
+      "explanation_count": 30813,
+      "investigation_history_count": 0,
+      "note": "Historical CERT r4.2 held-out test partition demonstration dataset; not live organisational monitoring."
+    },
+    "/api/v1/alerts/1184": {
+      "alert_id": 1184,
+      "observation_id": 7465,
+      "employee_id": "BMG0917",
+      "role": "Physicist",
+      "department": "1 - Research",
+      "activity_date": "2011-03-19",
+      "anomaly_score": 0.23446974714198554,
+      "risk_score": 99.99506676313885,
+      "priority": "Critical",
+      "status": "OPEN",
+      "model_version": "isolation_forest_v1",
+      "created_at": "2026-11-26T12:07:31+00:00",
+      "updated_at": "2026-11-26T12:07:31+00:00",
+      "functional_unit": "2 - ResearchAndEngineering",
+      "login_count": 2,
+      "after_hours_login_count": 2,
+      "http_activity_count": 0,
+      "email_activity_count": 0,
+      "file_activity_count": 0,
+      "usb_activity_count": 0,
+      "total_activity_count": 2,
+      "after_hours_ratio": 1.0,
+      "is_weekend": 1,
+      "explanations": [
+        {
+          "explanation_id": 3550,
+          "feature_name": "http_activity_count",
+          "activity_label": "Web / HTTP Activity",
+          "current_value": 0.0,
+          "historical_mean": 100.0,
+          "historical_std": 0.0,
+          "deviation": -100.0,
+          "direction": "below_baseline",
+          "historical_obs_count": 14,
+          "evidence_description": "Web / HTTP Activity count (0) is 100.00 stabilized std below the employee's 14-observation baseline (mean 100.00, std 0.00).",
+          "investigation_recommendation": "Review proxy or web-access logs for unusual browsing volume or automated tool traffic."
+        },
+        {
+          "explanation_id": 3551,
+          "feature_name": "usb_activity_count",
+          "activity_label": "USB / Removable Device Activity",
+          "current_value": 0.0,
+          "historical_mean": 16.7143,
+          "historical_std": 1.79,
+          "deviation": -9.3376,
+          "direction": "below_baseline",
+          "historical_obs_count": 14,
+          "evidence_description": "USB / Removable Device Activity count (0) is 9.34 stabilized std below the employee's 14-observation baseline (mean 16.71, std 1.79).",
+          "investigation_recommendation": "Unusual removable-device usage; verify business justification and endpoint device policy."
+        },
+        {
+          "explanation_id": 3552,
+          "feature_name": "email_activity_count",
+          "activity_label": "Email Activity",
+          "current_value": 0.0,
+          "historical_mean": 9.0714,
+          "historical_std": 0.2575,
+          "deviation": -9.0714,
+          "direction": "below_baseline",
+          "historical_obs_count": 14,
+          "evidence_description": "Email Activity count (0) is 9.07 stabilized std below the employee's 14-observation baseline (mean 9.07, std 0.26).",
+          "investigation_recommendation": "Review email volume trends and verify whether bulk communications were business-related."
+        }
+      ]
+    },
+    "/api/v1/alerts/1184/history": {
+      "alert_id": 1184,
+      "items": []
+    },
+    "/api/v1/employees/BMG0917": {
+      "employee_id": "BMG0917",
+      "role": "Physicist",
+      "department": "1 - Research",
+      "functional_unit": "2 - ResearchAndEngineering",
+      "first_activity_date": "2011-02-07",
+      "last_activity_date": "2011-05-16",
+      "observation_count": 71,
+      "max_risk_score": 99.99506676313885,
+      "alert_count": 71,
+      "open_alert_count": 71,
+      "avg_risk_score": 95.33392223365846
+    },
+    "/api/v1/employees/BMG0917/history?page=1&page_size=5": {
+      "employee_id": "BMG0917",
+      "items": [
+        {
+          "observation_id": 7505,
+          "employee_id": "BMG0917",
+          "activity_date": "2011-05-16",
+          "login_count": 3,
+          "after_hours_login_count": 0,
+          "http_activity_count": 100,
+          "email_activity_count": 9,
+          "file_activity_count": 22,
+          "usb_activity_count": 18,
+          "total_activity_count": 152,
+          "after_hours_ratio": 0.0,
+          "is_weekend": 0,
+          "anomaly_score": 0.03680581887806322,
+          "risk_score": 93.10826810497927,
+          "priority": "Medium",
+          "alert_id": 1224,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 7504,
+          "employee_id": "BMG0917",
+          "activity_date": "2011-05-13",
+          "login_count": 2,
+          "after_hours_login_count": 0,
+          "http_activity_count": 100,
+          "email_activity_count": 9,
+          "file_activity_count": 23,
+          "usb_activity_count": 18,
+          "total_activity_count": 152,
+          "after_hours_ratio": 0.0,
+          "is_weekend": 0,
+          "anomaly_score": 0.04241685554260888,
+          "risk_score": 93.72985594948365,
+          "priority": "Medium",
+          "alert_id": 1223,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 7503,
+          "employee_id": "BMG0917",
+          "activity_date": "2011-05-12",
+          "login_count": 3,
+          "after_hours_login_count": 0,
+          "http_activity_count": 100,
+          "email_activity_count": 9,
+          "file_activity_count": 25,
+          "usb_activity_count": 18,
+          "total_activity_count": 155,
+          "after_hours_ratio": 0.0,
+          "is_weekend": 0,
+          "anomaly_score": 0.04334395499513244,
+          "risk_score": 93.81207656383609,
+          "priority": "Medium",
+          "alert_id": 1222,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 7502,
+          "employee_id": "BMG0917",
+          "activity_date": "2011-05-11",
+          "login_count": 3,
+          "after_hours_login_count": 0,
+          "http_activity_count": 100,
+          "email_activity_count": 8,
+          "file_activity_count": 25,
+          "usb_activity_count": 18,
+          "total_activity_count": 154,
+          "after_hours_ratio": 0.0,
+          "is_weekend": 0,
+          "anomaly_score": 0.06241992129749141,
+          "risk_score": 95.67848450963625,
+          "priority": "Medium",
+          "alert_id": 1221,
+          "alert_status": "OPEN"
+        },
+        {
+          "observation_id": 7501,
+          "employee_id": "BMG0917",
+          "activity_date": "2011-05-10",
+          "login_count": 3,
+          "after_hours_login_count": 0,
+          "http_activity_count": 100,
+          "email_activity_count": 9,
+          "file_activity_count": 20,
+          "usb_activity_count": 18,
+          "total_activity_count": 150,
+          "after_hours_ratio": 0.0,
+          "is_weekend": 0,
+          "anomaly_score": 0.0404352425569382,
+          "risk_score": 93.52266000131553,
+          "priority": "Medium",
+          "alert_id": 1220,
+          "alert_status": "OPEN"
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "page_size": 5,
+        "total": 71,
+        "total_pages": 15
+      }
+    },
+    "POST /api/v1/model/predict": {
+      "model_version": "full_engineered_20",
+      "disclaimer": "Anomaly and risk scores are statistical prioritization indicators of behavioural deviation; they do not represent probabilities or definitive evidence of malicious intent.",
+      "predictions": [
+        {
+          "anomaly_score": -0.07994977607746434,
+          "risk_score": 75.8,
+          "priority": "Informational",
+          "estimator_default_is_anomaly": false,
+          "is_flagged_for_review": false
+        }
+      ]
+    }
+  }
+}

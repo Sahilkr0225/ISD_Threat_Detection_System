@@ -51,6 +51,7 @@ data/processed/*.csv
 models/*.joblib
 models/*.pkl
 models/*.sav
+models/*.npy
 
 # Temporary / OS / IDE files
 .vscode/
