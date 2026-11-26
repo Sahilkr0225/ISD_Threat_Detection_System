@@ -87,9 +87,13 @@ def get_dashboard_summary(conn: sqlite3.Connection) -> Dict[str, Any]:
             h.previous_status,
             h.new_status,
             h.analyst_note,
-            h.changed_at
+            h.changed_at,
+            h.actor_user_id,
+            u.username AS actor_username,
+            u.display_name AS actor_display_name
         FROM investigation_history h
         JOIN alerts a ON a.alert_id = h.alert_id
+        LEFT JOIN users u ON u.user_id = h.actor_user_id
         ORDER BY h.history_id DESC
         LIMIT 10
         """
@@ -506,10 +510,20 @@ def get_alert_history(conn: sqlite3.Connection, alert_id: int) -> Optional[List[
         return None
     rows = conn.execute(
         """
-        SELECT history_id, alert_id, previous_status, new_status, analyst_note, changed_at
-        FROM investigation_history
-        WHERE alert_id = ?
-        ORDER BY history_id DESC
+        SELECT
+            h.history_id,
+            h.alert_id,
+            h.previous_status,
+            h.new_status,
+            h.analyst_note,
+            h.changed_at,
+            h.actor_user_id,
+            u.username AS actor_username,
+            u.display_name AS actor_display_name
+        FROM investigation_history h
+        LEFT JOIN users u ON u.user_id = h.actor_user_id
+        WHERE h.alert_id = ?
+        ORDER BY h.history_id DESC
         """,
         (alert_id,),
     ).fetchall()
@@ -521,8 +535,9 @@ def update_alert_status(
     alert_id: int,
     new_status: str,
     analyst_note: Optional[str] = None,
+    actor_user_id: Optional[int] = None,
 ) -> Optional[Dict[str, Any]]:
-    """Validate and apply an alert status transition, recording investigation history."""
+    """Validate and apply an alert status transition, recording investigation & audit history."""
     if new_status not in ALLOWED_STATUSES:
         raise InvalidStatusTransitionError(
             f"Unsupported status '{new_status}'. Allowed: {ALLOWED_STATUSES}"
@@ -549,10 +564,28 @@ def update_alert_status(
     )
     conn.execute(
         """
-        INSERT INTO investigation_history (alert_id, previous_status, new_status, analyst_note, changed_at)
-        VALUES (?, ?, ?, ?, ?)
+        INSERT INTO investigation_history (
+            alert_id, previous_status, new_status, analyst_note, changed_at, actor_user_id
+        ) VALUES (?, ?, ?, ?, ?, ?)
         """,
-        (alert_id, prev_status, new_status, analyst_note, now),
+        (alert_id, prev_status, new_status, analyst_note, now, actor_user_id),
+    )
+    conn.execute(
+        """
+        INSERT INTO security_audit_logs (
+            actor_user_id, action, resource_type, resource_id, outcome, timestamp, details
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        """,
+        (
+            actor_user_id,
+            "INVESTIGATION_STATUS_CHANGED",
+            "alert",
+            str(alert_id),
+            "SUCCESS",
+            now,
+            f"status: {prev_status} -> {new_status}"
+            + ("; note_recorded=true" if analyst_note else ""),
+        ),
     )
     return get_alert_detail(conn, alert_id)
 
