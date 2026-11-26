@@ -1,0 +1,808 @@
+{
+  "master_behavioral_matrix": {
+    "file_name": "master_behavioral_matrix.parquet",
+    "file_size_bytes": 2895314,
+    "file_size_mb": 2.761,
+    "parquet_num_row_groups": 1,
+    "row_count": 330452,
+    "column_count": 17,
+    "memory_usage_mb": 127.747,
+    "columns": [
+      "user",
+      "day",
+      "total_logon_activity",
+      "after_hours_activity",
+      "http_activity_count",
+      "total_emails",
+      "avg_sentiment",
+      "file_activity_count",
+      "usb_activity_count",
+      "O",
+      "C",
+      "E",
+      "A",
+      "N",
+      "role",
+      "department",
+      "functional_unit"
+    ],
+    "pandas_dtypes": {
+      "user": "object",
+      "day": "object",
+      "total_logon_activity": "int64",
+      "after_hours_activity": "int64",
+      "http_activity_count": "float64",
+      "total_emails": "float64",
+      "avg_sentiment": "float64",
+      "file_activity_count": "float64",
+      "usb_activity_count": "float64",
+      "O": "int64",
+      "C": "int64",
+      "E": "int64",
+      "A": "int64",
+      "N": "int64",
+      "role": "object",
+      "department": "object",
+      "functional_unit": "object"
+    },
+    "arrow_schema": [
+      "user: string",
+      "day: date32[day]",
+      "total_logon_activity: int64",
+      "after_hours_activity: int64",
+      "http_activity_count: double",
+      "total_emails: double",
+      "avg_sentiment: double",
+      "file_activity_count: double",
+      "usb_activity_count: double",
+      "O: int64",
+      "C: int64",
+      "E: int64",
+      "A: int64",
+      "N: int64",
+      "role: string",
+      "department: string",
+      "functional_unit: string"
+    ],
+    "employee_column": "user",
+    "unique_employees": 1000,
+    "date_info": {
+      "column": "day",
+      "unique_dates": 501,
+      "min_date": "2010-01-02",
+      "max_date": "2011-05-17",
+      "unparseable_dates": 0
+    },
+    "employee_day_counts": {
+      "min_obs_per_emp": 25,
+      "median_obs_per_emp": 346.0,
+      "mean_obs_per_emp": 330.45,
+      "max_obs_per_emp": 495
+    },
+    "duplicate_rows": 0,
+    "duplicate_employee_date_rows": 0,
+    "missing_values": {
+      "role": 31281,
+      "department": 36125,
+      "functional_unit": 31973
+    },
+    "infinite_values": {},
+    "negative_values": {
+      "avg_sentiment": 115586
+    },
+    "constant_columns": [],
+    "near_constant_columns": {},
+    "categorical_cardinality": {
+      "user": {
+        "nunique": 1000,
+        "top_values": {
+          "IKP0472": 495,
+          "HAD0246": 494,
+          "HLH0512": 492,
+          "CTR0341": 491,
+          "LAP0338": 488
+        }
+      },
+      "day": {
+        "nunique": 501,
+        "top_values": {
+          "2010-02-01": 1000,
+          "2010-02-02": 1000,
+          "2010-01-27": 1000,
+          "2010-01-28": 1000,
+          "2010-01-26": 1000
+        }
+      },
+      "role": {
+        "nunique": 41,
+        "top_values": {
+          "ProductionLineWorker": 55086,
+          "Technician": 46247,
+          "Salesman": 44568,
+          "None": 31281,
+          "Scientist": 13110
+        }
+      },
+      "department": {
+        "nunique": 22,
+        "top_values": {
+          "3 - Assembly": 57854,
+          "2 - Sales": 47336,
+          "3 - FieldService": 47013,
+          "3 - Engineering": 38901,
+          "None": 36125
+        }
+      },
+      "functional_unit": {
+        "nunique": 6,
+        "top_values": {
+          "2 - ResearchAndEngineering": 99547,
+          "5 - SalesAndMarketing": 95733,
+          "3 - Manufacturing": 65870,
+          "None": 31973,
+          "1 - Adminstration": 26994
+        }
+      }
+    },
+    "potential_label_columns": [],
+    "label_distributions": {},
+    "potential_psychometric_or_sentiment_columns": [
+      "avg_sentiment"
+    ],
+    "numeric_stats": {
+      "total_logon_activity": {
+        "min": 1.0,
+        "p25": 2.0,
+        "median": 2.0,
+        "mean": 2.5869,
+        "p75": 3.0,
+        "p99": 10.0,
+        "max": 17.0,
+        "std": 1.3852
+      },
+      "after_hours_activity": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.2807,
+        "p75": 0.0,
+        "p99": 6.0,
+        "max": 14.0,
+        "std": 1.0207
+      },
+      "http_activity_count": {
+        "min": 0.0,
+        "p25": 29.0,
+        "median": 95.0,
+        "mean": 86.0471,
+        "p75": 114.0,
+        "p99": 190.0,
+        "max": 400.0,
+        "std": 57.2817
+      },
+      "total_emails": {
+        "min": 0.0,
+        "p25": 3.0,
+        "median": 9.0,
+        "mean": 7.9587,
+        "p75": 11.0,
+        "p99": 18.0,
+        "max": 36.0,
+        "std": 5.2913
+      },
+      "avg_sentiment": {
+        "min": -0.9836,
+        "p25": -0.0805,
+        "median": 0.0967,
+        "mean": 0.1143,
+        "p75": 0.3059,
+        "p99": 0.9136,
+        "max": 0.9915,
+        "std": 0.3444
+      },
+      "file_activity_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 1.3484,
+        "p75": 0.0,
+        "p99": 27.0,
+        "max": 54.0,
+        "std": 4.6976
+      },
+      "usb_activity_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 1.2267,
+        "p75": 0.0,
+        "p99": 18.0,
+        "max": 28.0,
+        "std": 3.7072
+      },
+      "O": {
+        "min": 10.0,
+        "p25": 23.0,
+        "median": 36.0,
+        "mean": 33.0906,
+        "p75": 42.0,
+        "p99": 50.0,
+        "max": 50.0,
+        "std": 10.7022
+      },
+      "C": {
+        "min": 10.0,
+        "p25": 20.0,
+        "median": 33.0,
+        "mean": 30.5867,
+        "p75": 40.0,
+        "p99": 50.0,
+        "max": 50.0,
+        "std": 11.2858
+      },
+      "E": {
+        "min": 10.0,
+        "p25": 19.0,
+        "median": 28.0,
+        "mean": 29.178,
+        "p75": 39.0,
+        "p99": 49.0,
+        "max": 50.0,
+        "std": 10.9477
+      },
+      "A": {
+        "min": 10.0,
+        "p25": 19.0,
+        "median": 27.0,
+        "mean": 28.9126,
+        "p75": 39.0,
+        "p99": 50.0,
+        "max": 50.0,
+        "std": 11.1965
+      },
+      "N": {
+        "min": 14.0,
+        "p25": 26.0,
+        "median": 29.0,
+        "mean": 29.6531,
+        "p75": 33.0,
+        "p99": 41.0,
+        "max": 49.0,
+        "std": 4.9628
+      }
+    }
+  },
+  "feature_matrix_v1": {
+    "file_name": "feature_matrix_v1.parquet",
+    "file_size_bytes": 9578896,
+    "file_size_mb": 9.135,
+    "parquet_num_row_groups": 1,
+    "row_count": 330452,
+    "column_count": 33,
+    "memory_usage_mb": 156.741,
+    "columns": [
+      "user",
+      "day",
+      "total_logon_activity",
+      "after_hours_activity",
+      "after_hours_ratio",
+      "http_activity_count",
+      "total_emails",
+      "avg_sentiment",
+      "file_activity_count",
+      "usb_activity_count",
+      "sentiment_negative_flag",
+      "sentiment_strong_negative_flag",
+      "sentiment_30d_std",
+      "sentiment_z_user",
+      "weekday",
+      "is_weekend",
+      "logon_7d_mean",
+      "total_logon_activity_z_user",
+      "http_activity_count_z_user",
+      "total_emails_z_user",
+      "file_activity_count_z_user",
+      "usb_activity_count_z_user",
+      "login_hour_mean",
+      "login_hour_std",
+      "login_hour_range_p90_p10",
+      "O",
+      "C",
+      "E",
+      "A",
+      "N",
+      "role",
+      "department",
+      "functional_unit"
+    ],
+    "pandas_dtypes": {
+      "user": "object",
+      "day": "datetime64[ns]",
+      "total_logon_activity": "int64",
+      "after_hours_activity": "int64",
+      "after_hours_ratio": "float64",
+      "http_activity_count": "float64",
+      "total_emails": "float64",
+      "avg_sentiment": "float64",
+      "file_activity_count": "float64",
+      "usb_activity_count": "float64",
+      "sentiment_negative_flag": "int64",
+      "sentiment_strong_negative_flag": "int64",
+      "sentiment_30d_std": "float64",
+      "sentiment_z_user": "float64",
+      "weekday": "int32",
+      "is_weekend": "int64",
+      "logon_7d_mean": "float64",
+      "total_logon_activity_z_user": "float64",
+      "http_activity_count_z_user": "float64",
+      "total_emails_z_user": "float64",
+      "file_activity_count_z_user": "float64",
+      "usb_activity_count_z_user": "float64",
+      "login_hour_mean": "float64",
+      "login_hour_std": "float64",
+      "login_hour_range_p90_p10": "float64",
+      "O": "int64",
+      "C": "int64",
+      "E": "int64",
+      "A": "int64",
+      "N": "int64",
+      "role": "object",
+      "department": "object",
+      "functional_unit": "object"
+    },
+    "arrow_schema": [
+      "user: string",
+      "day: timestamp[ns]",
+      "total_logon_activity: int64",
+      "after_hours_activity: int64",
+      "after_hours_ratio: double",
+      "http_activity_count: double",
+      "total_emails: double",
+      "avg_sentiment: double",
+      "file_activity_count: double",
+      "usb_activity_count: double",
+      "sentiment_negative_flag: int64",
+      "sentiment_strong_negative_flag: int64",
+      "sentiment_30d_std: double",
+      "sentiment_z_user: double",
+      "weekday: int32",
+      "is_weekend: int64",
+      "logon_7d_mean: double",
+      "total_logon_activity_z_user: double",
+      "http_activity_count_z_user: double",
+      "total_emails_z_user: double",
+      "file_activity_count_z_user: double",
+      "usb_activity_count_z_user: double",
+      "login_hour_mean: double",
+      "login_hour_std: double",
+      "login_hour_range_p90_p10: double",
+      "O: int64",
+      "C: int64",
+      "E: int64",
+      "A: int64",
+      "N: int64",
+      "role: string",
+      "department: string",
+      "functional_unit: string"
+    ],
+    "employee_column": "user",
+    "unique_employees": 1000,
+    "date_info": {
+      "column": "day",
+      "unique_dates": 501,
+      "min_date": "2010-01-02",
+      "max_date": "2011-05-17",
+      "unparseable_dates": 0
+    },
+    "employee_day_counts": {
+      "min_obs_per_emp": 25,
+      "median_obs_per_emp": 346.0,
+      "mean_obs_per_emp": 330.45,
+      "max_obs_per_emp": 495
+    },
+    "duplicate_rows": 0,
+    "duplicate_employee_date_rows": 0,
+    "missing_values": {
+      "sentiment_30d_std": 2000,
+      "logon_7d_mean": 2000,
+      "role": 31281,
+      "department": 36125,
+      "functional_unit": 31973
+    },
+    "infinite_values": {},
+    "negative_values": {
+      "avg_sentiment": 115586,
+      "sentiment_z_user": 162640,
+      "total_logon_activity_z_user": 83590,
+      "http_activity_count_z_user": 9377,
+      "total_emails_z_user": 41010,
+      "file_activity_count_z_user": 52081,
+      "usb_activity_count_z_user": 50186
+    },
+    "constant_columns": [],
+    "near_constant_columns": {},
+    "categorical_cardinality": {
+      "user": {
+        "nunique": 1000,
+        "top_values": {
+          "IKP0472": 495,
+          "HAD0246": 494,
+          "HLH0512": 492,
+          "CTR0341": 491,
+          "LAP0338": 488
+        }
+      },
+      "day": {
+        "nunique": 501,
+        "top_values": {
+          "2010-02-01 00:00:00": 1000,
+          "2010-02-02 00:00:00": 1000,
+          "2010-01-27 00:00:00": 1000,
+          "2010-01-28 00:00:00": 1000,
+          "2010-01-26 00:00:00": 1000
+        }
+      },
+      "role": {
+        "nunique": 41,
+        "top_values": {
+          "ProductionLineWorker": 55086,
+          "Technician": 46247,
+          "Salesman": 44568,
+          "None": 31281,
+          "Scientist": 13110
+        }
+      },
+      "department": {
+        "nunique": 22,
+        "top_values": {
+          "3 - Assembly": 57854,
+          "2 - Sales": 47336,
+          "3 - FieldService": 47013,
+          "3 - Engineering": 38901,
+          "None": 36125
+        }
+      },
+      "functional_unit": {
+        "nunique": 6,
+        "top_values": {
+          "2 - ResearchAndEngineering": 99547,
+          "5 - SalesAndMarketing": 95733,
+          "3 - Manufacturing": 65870,
+          "None": 31973,
+          "1 - Adminstration": 26994
+        }
+      }
+    },
+    "potential_label_columns": [],
+    "label_distributions": {},
+    "potential_psychometric_or_sentiment_columns": [
+      "avg_sentiment",
+      "sentiment_negative_flag",
+      "sentiment_strong_negative_flag",
+      "sentiment_30d_std",
+      "sentiment_z_user"
+    ],
+    "numeric_stats": {
+      "total_logon_activity": {
+        "min": 1.0,
+        "p25": 2.0,
+        "median": 2.0,
+        "mean": 2.5869,
+        "p75": 3.0,
+        "p99": 10.0,
+        "max": 17.0,
+        "std": 1.3852
+      },
+      "after_hours_activity": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.2807,
+        "p75": 0.0,
+        "p99": 6.0,
+        "max": 14.0,
+        "std": 1.0207
+      },
+      "after_hours_ratio": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.0674,
+        "p75": 0.0,
+        "p99": 1.0,
+        "max": 1.0,
+        "std": 0.1987
+      },
+      "http_activity_count": {
+        "min": 0.0,
+        "p25": 29.0,
+        "median": 95.0,
+        "mean": 86.0471,
+        "p75": 114.0,
+        "p99": 190.0,
+        "max": 400.0,
+        "std": 57.2817
+      },
+      "total_emails": {
+        "min": 0.0,
+        "p25": 3.0,
+        "median": 9.0,
+        "mean": 7.9587,
+        "p75": 11.0,
+        "p99": 18.0,
+        "max": 36.0,
+        "std": 5.2913
+      },
+      "avg_sentiment": {
+        "min": -0.9836,
+        "p25": -0.0805,
+        "median": 0.0967,
+        "mean": 0.1143,
+        "p75": 0.3059,
+        "p99": 0.9136,
+        "max": 0.9915,
+        "std": 0.3444
+      },
+      "file_activity_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 1.3484,
+        "p75": 0.0,
+        "p99": 27.0,
+        "max": 54.0,
+        "std": 4.6976
+      },
+      "usb_activity_count": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 1.2267,
+        "p75": 0.0,
+        "p99": 18.0,
+        "max": 28.0,
+        "std": 3.7072
+      },
+      "sentiment_negative_flag": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.3498,
+        "p75": 1.0,
+        "p99": 1.0,
+        "max": 1.0,
+        "std": 0.4769
+      },
+      "sentiment_strong_negative_flag": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.0883,
+        "p75": 0.0,
+        "p99": 1.0,
+        "max": 1.0,
+        "std": 0.2838
+      },
+      "sentiment_30d_std": {
+        "min": 0.0,
+        "p25": 0.1944,
+        "median": 0.2339,
+        "mean": 0.2985,
+        "p75": 0.3631,
+        "p99": 0.6609,
+        "max": 1.291,
+        "std": 0.1485
+      },
+      "sentiment_z_user": {
+        "min": -493.9,
+        "p25": -0.7087,
+        "median": 0.0049,
+        "mean": 0.0067,
+        "p75": 0.7475,
+        "p99": 2.4778,
+        "max": 884.2,
+        "std": 2.2924
+      },
+      "weekday": {
+        "min": 0.0,
+        "p25": 1.0,
+        "median": 2.0,
+        "mean": 2.0527,
+        "p75": 3.0,
+        "p99": 5.0,
+        "max": 6.0,
+        "std": 1.4769
+      },
+      "is_weekend": {
+        "min": 0.0,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.021,
+        "p75": 0.0,
+        "p99": 1.0,
+        "max": 1.0,
+        "std": 0.1434
+      },
+      "logon_7d_mean": {
+        "min": 1.8333,
+        "p25": 2.0,
+        "median": 2.0,
+        "mean": 2.5867,
+        "p75": 2.8571,
+        "p99": 8.8571,
+        "max": 12.5714,
+        "std": 1.2272
+      },
+      "total_logon_activity_z_user": {
+        "min": -18.5473,
+        "p25": -0.0197,
+        "median": 0.0,
+        "mean": -0.0,
+        "p75": 0.0,
+        "p99": 2.4357,
+        "max": 15.0667,
+        "std": 0.6885
+      },
+      "http_activity_count_z_user": {
+        "min": -22.2036,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "p75": 0.0,
+        "p99": 0.1698,
+        "max": 14.1305,
+        "std": 0.5237
+      },
+      "total_emails_z_user": {
+        "min": -12.7956,
+        "p25": 0.1873,
+        "median": 0.2474,
+        "mean": 0.0,
+        "p75": 0.277,
+        "p99": 0.3438,
+        "max": 9.5796,
+        "std": 0.9985
+      },
+      "file_activity_count_z_user": {
+        "min": -7.9682,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "p75": 0.0,
+        "p99": 1.8718,
+        "max": 18.2484,
+        "std": 0.4999
+      },
+      "usb_activity_count_z_user": {
+        "min": -9.9411,
+        "p25": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "p75": 0.0,
+        "p99": 1.9315,
+        "max": 18.2484,
+        "std": 0.5004
+      },
+      "login_hour_mean": {
+        "min": 10.7476,
+        "p25": 11.74,
+        "median": 12.3996,
+        "mean": 12.3936,
+        "p75": 13.0,
+        "p99": 15.0,
+        "max": 15.3479,
+        "std": 0.8879
+      },
+      "login_hour_std": {
+        "min": 3.0788,
+        "p25": 4.0437,
+        "median": 4.5196,
+        "mean": 4.6653,
+        "p75": 5.0356,
+        "p99": 7.4436,
+        "max": 7.5568,
+        "std": 0.8016
+      },
+      "login_hour_range_p90_p10": {
+        "min": 7.0,
+        "p25": 9.0,
+        "median": 10.0,
+        "mean": 10.2342,
+        "p75": 11.0,
+        "p99": 20.0,
+        "max": 20.0,
+        "std": 2.1497
+      },
+      "O": {
+        "min": 10.0,
+        "p25": 23.0,
+        "median": 36.0,
+        "mean": 33.0906,
+        "p75": 42.0,
+        "p99": 50.0,
+        "max": 50.0,
+        "std": 10.7022
+      },
+      "C": {
+        "min": 10.0,
+        "p25": 20.0,
+        "median": 33.0,
+        "mean": 30.5867,
+        "p75": 40.0,
+        "p99": 50.0,
+        "max": 50.0,
+        "std": 11.2858
+      },
+      "E": {
+        "min": 10.0,
+        "p25": 19.0,
+        "median": 28.0,
+        "mean": 29.178,
+        "p75": 39.0,
+        "p99": 49.0,
+        "max": 50.0,
+        "std": 10.9477
+      },
+      "A": {
+        "min": 10.0,
+        "p25": 19.0,
+        "median": 27.0,
+        "mean": 28.9126,
+        "p75": 39.0,
+        "p99": 50.0,
+        "max": 50.0,
+        "std": 11.1965
+      },
+      "N": {
+        "min": 14.0,
+        "p25": 26.0,
+        "median": 29.0,
+        "mean": 29.6531,
+        "p75": 33.0,
+        "p99": 41.0,
+        "max": 49.0,
+        "std": 4.9628
+      }
+    }
+  },
+  "comparison": {
+    "shared_columns": [
+      "A",
+      "C",
+      "E",
+      "N",
+      "O",
+      "after_hours_activity",
+      "avg_sentiment",
+      "day",
+      "department",
+      "file_activity_count",
+      "functional_unit",
+      "http_activity_count",
+      "role",
+      "total_emails",
+      "total_logon_activity",
+      "usb_activity_count",
+      "user"
+    ],
+    "only_in_master": [],
+    "only_in_feature_matrix_v1": [
+      "after_hours_ratio",
+      "file_activity_count_z_user",
+      "http_activity_count_z_user",
+      "is_weekend",
+      "login_hour_mean",
+      "login_hour_range_p90_p10",
+      "login_hour_std",
+      "logon_7d_mean",
+      "sentiment_30d_std",
+      "sentiment_negative_flag",
+      "sentiment_strong_negative_flag",
+      "sentiment_z_user",
+      "total_emails_z_user",
+      "total_logon_activity_z_user",
+      "usb_activity_count_z_user",
+      "weekday"
+    ]
+  }
+}

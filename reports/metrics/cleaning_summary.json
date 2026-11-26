@@ -1,0 +1,15 @@
+{
+  "original_row_count": 330452,
+  "cleaned_row_count": 330452,
+  "affected_records": 36125,
+  "missing_values_handled": {
+    "role": 31281,
+    "department": 36125,
+    "functional_unit": 31973
+  },
+  "duplicate_records_handled": 0,
+  "invalid_values_handled": 0,
+  "remaining_data_quality_issues": [
+    "Ground-truth insider threat labels are not present in master_behavioral_matrix.parquet."
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "approved_features": [
+    {
+      "feature_name": "login_count",
+      "source_column": "total_logon_activity",
+      "dtype": "int64",
+      "description": "Daily logon event count",
+      "calculation_method": "Direct canonical mapping",
+      "missing_value_strategy": "None required (0 missing)",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "after_hours_login_count",
+      "source_column": "after_hours_activity",
+      "dtype": "int64",
+      "description": "After-hours logon event count",
+      "calculation_method": "Direct canonical mapping",
+      "missing_value_strategy": "None required (0 missing)",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "http_activity_count",
+      "source_column": "http_activity_count",
+      "dtype": "int64",
+      "description": "Daily HTTP request count",
+      "calculation_method": "Direct canonical mapping",
+      "missing_value_strategy": "None required (0 missing)",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "email_activity_count",
+      "source_column": "total_emails",
+      "dtype": "int64",
+      "description": "Daily email count",
+      "calculation_method": "Direct canonical mapping",
+      "missing_value_strategy": "None required (0 missing)",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "file_activity_count",
+      "source_column": "file_activity_count",
+      "dtype": "int64",
+      "description": "Daily file access count",
+      "calculation_method": "Direct canonical mapping",
+      "missing_value_strategy": "None required (0 missing)",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "usb_activity_count",
+      "source_column": "usb_activity_count",
+      "dtype": "int64",
+      "description": "Daily USB connection/activity count",
+      "calculation_method": "Direct canonical mapping",
+      "missing_value_strategy": "None required (0 missing)",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "total_activity_count",
+      "source_column": "multiple",
+      "dtype": "int64",
+      "description": "Total daily observable activity volume",
+      "calculation_method": "Sum of login, HTTP, email, file, USB counts",
+      "missing_value_strategy": "None",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "after_hours_ratio",
+      "source_column": "after_hours_activity / total_logon_activity",
+      "dtype": "float64",
+      "description": "Proportion of logins occurring after hours",
+      "calculation_method": "after_hours_login_count / max(login_count, 1)",
+      "missing_value_strategy": "Zero when login_count == 0",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "is_weekend",
+      "source_column": "day",
+      "dtype": "int64",
+      "description": "Weekend indicator (Sat/Sun = 1)",
+      "calculation_method": "1 if dayofweek >= 5 else 0",
+      "missing_value_strategy": "None",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "log_http_activity",
+      "source_column": "http_activity_count",
+      "dtype": "float64",
+      "description": "Log-scaled HTTP activity intensity",
+      "calculation_method": "log1p(http_activity_count)",
+      "missing_value_strategy": "None",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "log_email_activity",
+      "source_column": "total_emails",
+      "dtype": "float64",
+      "description": "Log-scaled email activity intensity",
+      "calculation_method": "log1p(email_activity_count)",
+      "missing_value_strategy": "None",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "log_file_activity",
+      "source_column": "file_activity_count",
+      "dtype": "float64",
+      "description": "Log-scaled file activity intensity",
+      "calculation_method": "log1p(file_activity_count)",
+      "missing_value_strategy": "None",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "log_usb_activity",
+      "source_column": "usb_activity_count",
+      "dtype": "float64",
+      "description": "Log-scaled USB activity intensity",
+      "calculation_method": "log1p(usb_activity_count)",
+      "missing_value_strategy": "None",
+      "historical_requirement": "0 prior observations",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "login_hist_dev_14obs",
+      "source_column": "login",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of login",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "after_hours_hist_dev_14obs",
+      "source_column": "after_hours",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of after_hours",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "http_hist_dev_14obs",
+      "source_column": "http",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of http",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "email_hist_dev_14obs",
+      "source_column": "email",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of email",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "file_hist_dev_14obs",
+      "source_column": "file",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of file",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "usb_hist_dev_14obs",
+      "source_column": "usb",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of usb",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    },
+    {
+      "feature_name": "total_activity_hist_dev_14obs",
+      "source_column": "total_activity",
+      "dtype": "float64",
+      "description": "Causal 14-observation rolling z-deviation of total_activity",
+      "calculation_method": "(x_t - mean(x_{t-14..t-1})) / max(std(x_{t-14..t-1}), 1.0)",
+      "missing_value_strategy": "0.0 when fewer than 3 prior observations",
+      "historical_requirement": "Minimum 3 prior employee observations (up to 14)",
+      "leakage_safe": true,
+      "approved_for_training": true
+    }
+  ],
+  "excluded_columns": {
+    "employee_id": "Identifier \u2014 excluded to prevent memorizing specific users.",
+    "activity_date": "Raw date \u2014 excluded so model generalizes across time.",
+    "role": "Organisational metadata with 9.5% missingness \u2014 reserved for analyst context.",
+    "department": "Organisational metadata with 10.9% missingness \u2014 reserved for analyst context.",
+    "functional_unit": "Organisational metadata with 9.7% missingness \u2014 reserved for analyst context.",
+    "avg_sentiment": "Sentiment-derived attribute \u2014 excluded per observable-behaviour policy.",
+    "O": "Psychometric OCEAN trait \u2014 excluded per observable-behaviour policy.",
+    "C": "Psychometric OCEAN trait \u2014 excluded per observable-behaviour policy.",
+    "E": "Psychometric OCEAN trait \u2014 excluded per observable-behaviour policy.",
+    "A": "Psychometric OCEAN trait \u2014 excluded per observable-behaviour policy.",
+    "N": "Psychometric OCEAN trait \u2014 excluded per observable-behaviour policy."
+  }
+}

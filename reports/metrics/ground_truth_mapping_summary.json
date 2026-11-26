@@ -1,0 +1,48 @@
+{
+  "source_archive": "answers.tar.bz2",
+  "extraction_meta": {
+    "total_r42_insiders": 70,
+    "total_malicious_actor_events": 7273,
+    "total_malicious_employee_days": 966,
+    "scenarios": {
+      "1": 85,
+      "2": 861,
+      "3": 20
+    },
+    "missing_member_files": []
+  },
+  "matched_malicious_days_in_dataset": 966,
+  "unmatched_malicious_days": 0,
+  "split_ground_truth_distribution": {
+    "train": {
+      "total_rows": 208167,
+      "malicious_days": 557,
+      "malicious_rate_pct": 0.2676,
+      "scenario_counts": {
+        "1": 57,
+        "2": 486,
+        "3": 14
+      }
+    },
+    "validation": {
+      "total_rows": 60812,
+      "malicious_days": 255,
+      "malicious_rate_pct": 0.4193,
+      "scenario_counts": {
+        "1": 20,
+        "2": 231,
+        "3": 4
+      }
+    },
+    "test": {
+      "total_rows": 61473,
+      "malicious_days": 154,
+      "malicious_rate_pct": 0.2505,
+      "scenario_counts": {
+        "1": 8,
+        "2": 144,
+        "3": 2
+      }
+    }
+  }
+}

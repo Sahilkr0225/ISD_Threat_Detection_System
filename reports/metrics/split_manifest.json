@@ -1,0 +1,53 @@
+{
+  "strategy": "chronological_unique_dates",
+  "train_frac_target": 0.6,
+  "val_frac_target": 0.2,
+  "test_frac_target": 0.2,
+  "splits": {
+    "train": {
+      "date_min": "2010-01-02",
+      "date_max": "2010-10-28",
+      "unique_dates": 300,
+      "row_count": 208167,
+      "unique_employees": 1000
+    },
+    "validation": {
+      "date_min": "2010-10-29",
+      "date_max": "2011-02-05",
+      "unique_dates": 100,
+      "row_count": 60812,
+      "unique_employees": 922
+    },
+    "test": {
+      "date_min": "2011-02-06",
+      "date_max": "2011-05-17",
+      "unique_dates": 101,
+      "row_count": 61473,
+      "unique_employees": 877
+    }
+  },
+  "ground_truth_available": false,
+  "approved_model_features": [
+    "login_count",
+    "after_hours_login_count",
+    "http_activity_count",
+    "email_activity_count",
+    "file_activity_count",
+    "usb_activity_count",
+    "total_activity_count",
+    "after_hours_ratio",
+    "is_weekend",
+    "log_http_activity",
+    "log_email_activity",
+    "log_file_activity",
+    "log_usb_activity",
+    "login_hist_dev_14obs",
+    "after_hours_hist_dev_14obs",
+    "http_hist_dev_14obs",
+    "email_hist_dev_14obs",
+    "file_hist_dev_14obs",
+    "usb_hist_dev_14obs",
+    "total_activity_hist_dev_14obs"
+  ],
+  "random_seed": 42
+}

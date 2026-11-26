@@ -1,0 +1,62 @@
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python caches and build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Node / Frontend
+node_modules/
+frontend/dist/
+frontend/build/
+
+# Secrets and environment files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+secrets.toml
+
+# Generated databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Large raw and processed datasets
+data/raw/*.parquet
+data/raw/*.csv
+data/raw/*.zip
+data/raw/*.tar.gz
+data/raw/*.tar.bz2
+data/raw/*.bz2
+data/processed/*.parquet
+data/processed/*.csv
+
+# Generated model artifacts
+models/*.joblib
+models/*.pkl
+models/*.sav
+
+# Temporary / OS / IDE files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
