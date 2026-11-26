@@ -9,18 +9,22 @@
 - **Backend:** FastAPI, Python 3.10, Scikit-learn (Isolation Forest), Pandas, NumPy, PyArrow, Joblib, SQLite, Pytest
 - **Research & EDA:** Jupyter Notebook, Matplotlib, Seaborn
 
-## Current Implementation Status (Phase 5.1 Complete)
-- **Implemented:** Full-stack academic prototype — Phase 1 data pipeline & causal feature engineering, Phase 2 unscaled Isolation Forest (`ROC-AUC = 0.8843`), Phase 3 FastAPI + SQLite backend (`15` `/api/v1` endpoints, `32` passing Pytest tests), Phase 4 React + Vite + TypeScript + Tailwind CSS SOC dashboard (`frontend/`), and Phase 5.1 administrator-focused plain-language explainability & UI.
-- **Future Scope:** Authentication, RBAC, and live organisational event streaming.
+## Current Implementation Status (Phase 6 Complete)
+- **Implemented:** Full-stack academic prototype — Phase 1 data pipeline & causal feature engineering, Phase 2 unscaled Isolation Forest (`ROC-AUC = 0.8843`), Phase 3 FastAPI + SQLite backend, Phase 4 React + Vite + TypeScript + Tailwind CSS SOC dashboard (`frontend/`), Phase 5.1 administrator-focused plain-language explainability & UI, and Phase 6 Argon2id authentication, server-side opaque sessions, CSRF protection, RBAC (`ADMINISTRATOR`, `SECURITY_ANALYST`, `AUDITOR`), user management, and immutable security audit logging (`38` passing Pytest tests).
+- **Future Scope:** Live organisational event streaming and SIEM integration.
 
 ## Run Full-Stack Application (Local Demonstration)
 
-1. **Backend (Terminal 1):**
+1. **Provision an Initial Administrator (First Time Only):**
 ```powershell
-.\.venv\Scripts\python.exe scripts\init_and_import_db.py
+.\.venv\Scripts\python.exe scripts\bootstrap_admin.py
+```
+
+2. **Backend (Terminal 1):**
+```powershell
 .\.venv\Scripts\python.exe -m uvicorn backend.app.main:app --host 127.0.0.1 --port 8000
 ```
-2. **Frontend (Terminal 2):**
+3. **Frontend (Terminal 2):**
 ```powershell
 cd frontend
 npm install
@@ -51,6 +55,7 @@ py -3.10 -m venv .venv
 ```
 
 ## Documentation Index
+- [Authentication & RBAC (Phase 6)](docs/AUTHENTICATION_AND_RBAC.md)
 - [Project Status](docs/PROJECT_STATUS.md)
 - [Architecture & Preliminary API Contract](docs/ARCHITECTURE.md)
 - [Dataset Documentation](docs/DATASET_DOCUMENTATION.md)

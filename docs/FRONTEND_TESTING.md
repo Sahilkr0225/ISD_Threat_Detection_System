@@ -8,13 +8,12 @@ npm run build
 ```
 - `tsc -b` runs with strict TypeScript checking (`strict: true`, `noUnusedLocals: true`, `noUnusedParameters: true`).
 - `vite build` produces optimized route-split chunks in `frontend/dist/`.
+- **Latest Verified Result:** `tsc -b && vite build` passed cleanly (including Phase 6 `Login`, `AccessDenied`, `UserManagement`, `AuditLogs`, `ProtectedRoute`, and `AuthContext`).
 
-## End-to-End Integration Verification
-Verified against the live FastAPI backend (`http://127.0.0.1:8000`) and Vite dev server (`http://localhost:5173`):
-1. Security Overview KPIs, daily anomaly trend chart, priority/status distribution charts, and Critical queue.
-2. Employee Intelligence search, department filter, server-side pagination, and Employee Detail timeline.
-3. Alert Center filtering (`priority`, `status`, `employee_id`, date range, sorting, pagination).
-4. Investigation Workspace: Alert detail, causal explanations, `OPEN -> UNDER_REVIEW -> RESOLVED` transition with analyst note, confirmation dialog, and persisted `investigation_history`.
-5. Model Evaluation: 6-feature vs 20-feature ablation and interactive 4-threshold confusion matrix selector.
-6. Dataset & System provenance and limitations page.
-
+## Integration & RBAC Verification Scope
+- **Authenticated API & Proxy Flow:** Verified `/api` Vite proxy configuration (`frontend/vite.config.ts`) and cookie/CSRF handling (`withCredentials: true`, `X-CSRF-Token` interceptor in `frontend/src/api/client.ts`).
+- **Role-Specific Views:**
+  - `ADMINISTRATOR`: Access to all 3 sidebar groups (`Security Operations`, `Advanced & Technical`, `Governance & Access`), User Management (`/users`), Audit Logs (`/audit-logs`), and investigation actions.
+  - `SECURITY_ANALYST`: Access to `Security Operations` and investigation status transitions; restricted from `/model`, `/system`, `/users`, and `/audit-logs`.
+  - `AUDITOR`: Read-only access to `Security Operations`, `Advanced & Technical`, and `Audit Logs`; investigation mutation controls replaced with read-only notice on `AlertDetail`.
+- **Core Operational Pages (Verified):** Security Overview KPIs & charts, Employee Monitoring & detail timeline, Suspicious Activity filtering/pagination, Alert Detail causal explanations & investigation history (with actor attribution / `"Legacy / Unauthenticated"` fallback), Model Evaluation ablation & threshold selector, and Dataset & System provenance.
