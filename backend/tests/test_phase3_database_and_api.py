@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 import pytest
 
 from backend.app.core.config import MODEL_BUNDLE_PATH, VALIDATION_SCORE_REF_PATH
+from backend.app.database.auth_repository import create_user
 from backend.app.database.connection import get_db_connection
 from backend.app.database.repository import (
     InvalidStatusTransitionError,
@@ -135,6 +136,14 @@ def test_fastapi_endpoints_end_to_end(tmp_path: Path) -> None:
 
     db_path = tmp_path / "api_test.db"
     _seed_temp_db(db_path)
+    with get_db_connection(db_path) as conn:
+        create_user(
+            conn,
+            username="test_admin",
+            display_name="Test Admin",
+            password="TestAdminPassword!123",
+            role="ADMINISTRATOR",
+        )
 
     app = create_app(
         db_path=db_path,
@@ -143,6 +152,15 @@ def test_fastapi_endpoints_end_to_end(tmp_path: Path) -> None:
     )
     with TestClient(app) as client:
         assert client.get("/api/v1/health").json()["status"] == "ok"
+
+        login_resp = client.post(
+            "/api/v1/auth/login",
+            json={"username": "test_admin", "password": "TestAdminPassword!123"},
+        )
+        assert login_resp.status_code == 200
+        csrf_token = login_resp.json()["csrf_token"]
+        csrf_headers = {"X-CSRF-Token": csrf_token}
+
         assert client.get("/api/v1/dashboard/summary").json()["unique_employees"] == 1
         assert len(client.get("/api/v1/dashboard/trends").json()["items"]) == 1
         assert client.get("/api/v1/employees").json()["pagination"]["total"] == 1
@@ -163,6 +181,7 @@ def test_fastapi_endpoints_end_to_end(tmp_path: Path) -> None:
         r1 = client.patch(
             "/api/v1/alerts/1/status",
             json={"new_status": "UNDER_REVIEW", "analyst_note": "Investigating"},
+            headers=csrf_headers,
         )
         assert r1.status_code == 200
         assert r1.json()["status"] == "UNDER_REVIEW"
@@ -170,6 +189,7 @@ def test_fastapi_endpoints_end_to_end(tmp_path: Path) -> None:
         r2 = client.patch(
             "/api/v1/alerts/1/status",
             json={"new_status": "RESOLVED", "analyst_note": "Authorized transfer"},
+            headers=csrf_headers,
         )
         assert r2.status_code == 200
         assert r2.json()["status"] == "RESOLVED"
@@ -183,7 +203,11 @@ def test_fastapi_endpoints_end_to_end(tmp_path: Path) -> None:
         assert client.get("/api/v1/data/summary").json()["observation_count"] == 1
 
         vec = {f: 0.0 for f in APPROVED_MODEL_FEATURES}
-        pred = client.post("/api/v1/model/predict", json={"observations": [vec]})
+        pred = client.post(
+            "/api/v1/model/predict",
+            json={"observations": [vec]},
+            headers=csrf_headers,
+        )
         assert pred.status_code == 200
         assert 0.0 <= pred.json()["predictions"][0]["risk_score"] <= 100.0
 

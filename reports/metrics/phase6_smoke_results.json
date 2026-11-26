@@ -1,0 +1,25 @@
+{
+  "status_codes": {
+    "UNAUTH /api/v1/dashboard/summary": 401,
+    "/docs": 200,
+    "/api/v1/health": 200,
+    "/api/v1/auth/me": 200,
+    "/api/v1/dashboard/summary": 200,
+    "/api/v1/dashboard/trends": 200,
+    "/api/v1/employees?page=1&page_size=5": 200,
+    "/api/v1/anomalies?page=1&page_size=5": 200,
+    "/api/v1/alerts?priority=Critical&page=1&page_size=3": 200,
+    "/api/v1/model/info": 200,
+    "/api/v1/model/metrics": 200,
+    "/api/v1/data/summary": 200,
+    "/api/v1/users": 200,
+    "/api/v1/audit-logs": 200,
+    "/api/v1/alerts/1184": 200,
+    "/api/v1/alerts/1184/history": 200,
+    "/api/v1/employees/BMG0917": 200,
+    "/api/v1/employees/BMG0917/history?page=1&page_size=5": 200,
+    "POST /api/v1/model/predict": 200,
+    "ANALYST /api/v1/model/info": 403,
+    "AUDITOR PATCH alert": 403
+  }
+}
